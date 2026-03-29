@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using TMPro.EditorUtilities;
+// using TMPro.EditorUtilities;
 using UnityEngine.SceneManagement;
 
 public class EndScreenScript : MonoBehaviour
