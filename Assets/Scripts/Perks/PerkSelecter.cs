@@ -38,6 +38,8 @@ public class PerkSelecter : MonoBehaviour
         }
 
         perkIcon.gameObject.SetActive(false);
+
+        CheckForActivePerk();
     }
 
     public void SwitchPerk(int direction)
@@ -85,5 +87,16 @@ public class PerkSelecter : MonoBehaviour
     public PerkSO GetSelectedPerk()
     {
         return(currentPerkSelected);
+    }
+
+    private void CheckForActivePerk()
+    {
+        PerkSO _perk = PerksManager.Singleton.GetActivePerk();
+        if(_perk != null)
+        {
+            int _perkIndex = All_Perks.IndexOf(_perk);
+            SwitchPerk(_perkIndex);
+        }
+        
     }
 }
