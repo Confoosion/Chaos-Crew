@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3624505172387110576}
   - component: {fileID: 3229763641232559908}
   m_Layer: 0
-  m_Name: Muffin
+  m_Name: Potion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

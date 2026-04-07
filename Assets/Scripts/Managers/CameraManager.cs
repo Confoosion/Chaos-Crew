@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager Singleton { get; private set; }
-    [SerializeField] private CinemachineCamera cam;
+    private CinemachineCamera cam;
 
     void Awake()
     {

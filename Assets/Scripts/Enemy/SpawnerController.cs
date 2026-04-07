@@ -8,10 +8,6 @@ public class SpawnerController : MonoBehaviour
 {
     public List<GameObject> spawnList;
     [SerializeField] private SpawnDirection spawnDirection; // Which way should the objects spawn
-
-    // [SerializeField] private SpawnDirection middleSpawner; //When true, enemies should move to the left, when false enemies should move to the right
-
-    // private int spawnIndex = 0;
     private float portalAnimationSpeed = 0.1f;
     private Vector3 spawnerScale = new Vector3(1f, 1f, 1f);
 

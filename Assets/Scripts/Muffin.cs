@@ -6,10 +6,10 @@ public class Muffin : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            MuffinSpawner.Singleton.SpawnMuffin();
+            MuffinSpawner.Singleton.SpawnPotion();
             CharacterManager.Singleton.BecomeNewCharacter();
             PlayerAttack.Singleton.ResetAttackCooldown();
-            LevelManager.Singleton.addMuffin();
+            LevelManager.Singleton.AddPotion();
 
 
             Destroy(this.gameObject);

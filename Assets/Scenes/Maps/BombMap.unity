@@ -419,8 +419,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b02615a7065c745758b55eefc9e1d0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  muffinProgressBar: {fileID: 1562235119}
+  potionProgressBar: {fileID: 1562235119}
   difficulty: 1
+  portalObject: {fileID: 4668768587825375830, guid: 9d0e8ccbd2c32264f88ede5dc2f2fd7d, type: 3}
 --- !u!114 &380219113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,7 +434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca2df83ae3187b42b45a0d948fea5e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
-  cam: {fileID: 0}
 --- !u!1 &429788642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,6 +1457,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 112590078046090144, guid: 4a4275425d78446ab9bc8d26c6df4c5a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302043962231574433, guid: 4a4275425d78446ab9bc8d26c6df4c5a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7065073208442280349, guid: 4a4275425d78446ab9bc8d26c6df4c5a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1540,6 +1548,10 @@ PrefabInstance:
     - target: {fileID: 8020357480411139658, guid: 4a4275425d78446ab9bc8d26c6df4c5a, type: 3}
       propertyPath: m_Name
       value: UI_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213226290709693576, guid: 4a4275425d78446ab9bc8d26c6df4c5a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2689,7 +2701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ddbe1c3b055fd94aa58e1c573b0bd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MuffinSpawner
-  muffin: {fileID: 3183216167711710016, guid: 12b35574bf851e24085d31f255660c52, type: 3}
+  potionObj: {fileID: 3183216167711710016, guid: 12b35574bf851e24085d31f255660c52, type: 3}
   spawnOffset: 1.5
   spawnHeight: 5
 --- !u!114 &6076020107224946187

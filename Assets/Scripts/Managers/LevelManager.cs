@@ -5,14 +5,15 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     // should take care of everything that happens throughout the level. By level i mean a single map. Should 
-    //handle muffin count, difficulty. Depending on muffin count, it should tell game manager to swtich maps. 
+    //handle potion count, difficulty. Depending on potion count, it should tell game manager to switch maps. 
     public static LevelManager Singleton { get; private set; }
 
-    private int muffinCount;
-
-    public Slider muffinProgressBar;
-
+    private int potionCount;
+    public Slider potionProgressBar;
     public int difficulty = 1;
+
+    [SerializeField] private GameObject portalObject;
+    private Vector2 portalHeightOffset = new Vector2(0f, -3f);
 
     void Awake()
     {
@@ -23,25 +24,36 @@ public class LevelManager : MonoBehaviour
     }
     void Start()
     {
-        resetMuffinCount();
+        ResetPotionCount();
         resetDifficulty();
         updateProgressBar();
 
-        MuffinSpawner.Singleton.SpawnMuffin();
+        MuffinSpawner.Singleton.SpawnPotion();
     }
 
-    public void addMuffin()
+    public void AddPotion()
     {
-        muffinCount++;
+        potionCount++;
         updateProgressBar();
         GameManager.Singleton.addMuffinCount();
 
-        if (GameManager.Singleton.GetCurrentMuffinsNeeded() == muffinCount)
+        if (PotionGoalReached())
         {
-
-            GameManager.Singleton.NextLevel();
-
+            // GameManager.Singleton.NextLevel();
+            SpawnNextMapPortal();
         }
+    }
+
+    public bool PotionGoalReached() 
+    {
+        return(potionCount >= GameManager.Singleton.GetCurrentMuffinsNeeded());
+    }
+
+    private void SpawnNextMapPortal()
+    {
+        Vector2 spawnLocation = MuffinSpawner.Singleton.GetRandomLocation() + portalHeightOffset;
+        GameObject _portal = Instantiate(portalObject, spawnLocation, Quaternion.identity);
+        _portal.GetComponent<NextMapPortal>().ShowPortal();
     }
 
     public void increaseDifficulty()
@@ -54,20 +66,20 @@ public class LevelManager : MonoBehaviour
         difficulty = 1;
     }
 
-    public void resetMuffinCount()
+    public void ResetPotionCount()
     {
-        muffinCount = 0;
+        potionCount = 0;
     }
 
     private void updateProgressBar()
     {
-        float percentageComplete = (float)muffinCount / (float)GameManager.Singleton.GetCurrentMuffinsNeeded();
-        muffinProgressBar.value = percentageComplete;
+        float percentageComplete = (float)potionCount / (float)GameManager.Singleton.GetCurrentMuffinsNeeded();
+        potionProgressBar.value = percentageComplete;
     }
 
     public float GetPredictionProgress()
     {
-        float predPercentage = (float)(muffinCount + 1) / (float)GameManager.Singleton.GetCurrentMuffinsNeeded();
+        float predPercentage = (float)(potionCount + 1) / (float)GameManager.Singleton.GetCurrentMuffinsNeeded();
         return((predPercentage > 1f) ? 1f : predPercentage);
     }
 }

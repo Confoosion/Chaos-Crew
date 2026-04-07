@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 3412130455249500714}
   - component: {fileID: 7501737685250092839}
   m_Layer: 5
-  m_Name: MuffinProgressBar
+  m_Name: PotionProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

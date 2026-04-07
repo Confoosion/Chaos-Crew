@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &73844862 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3412130455249500714, guid: 4a4275425d78446ab9bc8d26c6df4c5a, type: 3}
-  m_PrefabInstance: {fileID: 1369590914435658942}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &265821429
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,8 +296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b02615a7065c745758b55eefc9e1d0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  muffinProgressBar: {fileID: 73844862}
+  potionProgressBar: {fileID: 1369590914435658943}
   difficulty: 1
+  portalObject: {fileID: 4668768587825375830, guid: 9d0e8ccbd2c32264f88ede5dc2f2fd7d, type: 3}
 --- !u!114 &380219113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,7 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca2df83ae3187b42b45a0d948fea5e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
-  cam: {fileID: 0}
 --- !u!1 &492960514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,6 +2132,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a4275425d78446ab9bc8d26c6df4c5a, type: 3}
+--- !u!114 &1369590914435658943 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3412130455249500714, guid: 4a4275425d78446ab9bc8d26c6df4c5a, type: 3}
+  m_PrefabInstance: {fileID: 1369590914435658942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &1477503249624887404
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,7 +2583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ddbe1c3b055fd94aa58e1c573b0bd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MuffinSpawner
-  muffin: {fileID: 3183216167711710016, guid: 12b35574bf851e24085d31f255660c52, type: 3}
+  potionObj: {fileID: 3183216167711710016, guid: 12b35574bf851e24085d31f255660c52, type: 3}
   spawnOffset: 1.5
   spawnHeight: 5
 --- !u!1001 &6631104289649996983
