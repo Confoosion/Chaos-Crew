@@ -71,23 +71,23 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        // // Debug God mode
-        // if(Input.GetKeyDown(KeyCode.I))
-        // {
-        //     godMode = !godMode;
-        //     if (godMode)
-        //     {
-        //         MAXSPEED += godFactor;
-        //         speed += godFactor;
-        //         jumpPower += godFactor;
-        //     }
-        //     else
-        //     {
-        //         MAXSPEED -= godFactor;
-        //         speed -= godFactor;
-        //         jumpPower -= godFactor;
-        //     }
-        // }
+        // Debug God mode
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            godMode = !godMode;
+            if (godMode)
+            {
+                MAXSPEED += godFactor;
+                speed += godFactor;
+                jumpPower += godFactor;
+            }
+            else
+            {
+                MAXSPEED -= godFactor;
+                speed -= godFactor;
+                jumpPower -= godFactor;
+            }
+        }
 
         if(Input.GetKeyDown(KeyCode.Escape) && GameManager.Singleton.IsPlayerAlive())
         {
