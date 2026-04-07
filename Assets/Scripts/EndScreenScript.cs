@@ -47,7 +47,7 @@ public class EndScreenScript : MonoBehaviour
         GameManager.Singleton.disableDeathScreen();
 
         GameManager.Singleton.resetEnemyKills();
-        GameManager.Singleton.resetMuffinCount();
+        GameManager.Singleton.ResetPotionCount();
 
         if(PlayerControl.Singleton)
             Destroy(PlayerControl.Singleton.gameObject);
@@ -66,14 +66,14 @@ public class EndScreenScript : MonoBehaviour
 
     public void updateText()
     {
-        potionsCollectedText.text = "Potions Collected: " + GameManager.Singleton.getMuffinSum();
+        potionsCollectedText.text = "Potions Collected: " + GameManager.Singleton.GetPotionSum();
         enemiesKilledText.text = "Enemies Killed: " + (GameManager.Singleton.getBasicEnemiesKilled() + GameManager.Singleton.getHeavyEnemiesKilled() + GameManager.Singleton.getAngryBasicEnemiesKilled() + GameManager.Singleton.getAngryHeavyEnemiesKilled());
         moreEnemyStatsText.text = "Basic Enemy Deaths: " + GameManager.Singleton.getBasicEnemiesKilled() + "\n" + "Heavy Enemy Deaths: " + GameManager.Singleton.getHeavyEnemiesKilled() + "\nAngry Basic Enemy Deaths: " + GameManager.Singleton.getAngryBasicEnemiesKilled() + "\nAngry Heavy Enemy Deaths: " + GameManager.Singleton.getAngryHeavyEnemiesKilled();
     }
 
     public void updateText2()
     {
-        potionsCollectedText2.text = "Potions Collected: " + GameManager.Singleton.getMuffinSum();
+        potionsCollectedText2.text = "Potions Collected: " + GameManager.Singleton.GetPotionSum();
         enemiesKilledText2.text = "Enemies Killed: " + (GameManager.Singleton.getBasicEnemiesKilled() + GameManager.Singleton.getHeavyEnemiesKilled() + GameManager.Singleton.getAngryBasicEnemiesKilled() + GameManager.Singleton.getAngryHeavyEnemiesKilled());
         moreEnemyStatsText2.text = "Basic Enemy Deaths: " + GameManager.Singleton.getBasicEnemiesKilled() + "\n" + "Heavy Enemy Deaths: " + GameManager.Singleton.getHeavyEnemiesKilled() + "\nAngry Basic Enemy Deaths: " + GameManager.Singleton.getAngryBasicEnemiesKilled() + "\nAngry Heavy Enemy Deaths: " + GameManager.Singleton.getAngryHeavyEnemiesKilled();
     }

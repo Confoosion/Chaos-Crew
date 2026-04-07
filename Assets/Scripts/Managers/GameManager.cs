@@ -18,10 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject endScreen;
     [SerializeField] private GameObject pauseScreen;
-    [SerializeField] private int START_MUFFINS_NEEDED = 5;
+    [SerializeField] private int START_POTIONS_NEEDED = 5;
 
     [Space]
-    [SerializeField] private int muffinsNeededToMoveOn = 5;
+    [SerializeField] private int potionsNeededToMoveOn = 5;
 
     private EndScreenScript endScreenScript;
 
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private List<int> visitedMapIndices = new List<int>();
 
     // variables for the whole game. End of game stats
-    private int muffinSum = 0;
+    private int potionSum = 0;
     private int basicEnemiesKilled = 0;
     private int angryBasicEnemiesKilled = 0;
     private int angryHeavyEnemiesKilled = 0;
@@ -67,10 +67,10 @@ public class GameManager : MonoBehaviour
         disableDeathScreen();
 
         resetEnemyKills();
-        resetMuffinCount();
+        ResetPotionCount();
         resetMapPool();
 
-        muffinsNeededToMoveOn = START_MUFFINS_NEEDED;
+        potionsNeededToMoveOn = START_POTIONS_NEEDED;
 
         SceneManager.LoadScene("RuinedCityMap");
 
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         PrepareSceneChange();
         SceneManager.LoadScene(newMapIndex);
 
-        muffinsNeededToMoveOn += muffinsNeededToMoveOn;
+        potionsNeededToMoveOn += potionsNeededToMoveOn;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -157,9 +157,9 @@ public class GameManager : MonoBehaviour
         return visitedMapIndices.Count;
     }
 
-    public int GetCurrentMuffinsNeeded()
+    public int GetCurrentPotionsNeeded()
     {
-        return(muffinsNeededToMoveOn);
+        return(potionsNeededToMoveOn);
     }
 
     public void PauseGame(bool pause)
@@ -177,9 +177,9 @@ public class GameManager : MonoBehaviour
 
     //end screen stats stuff
 
-    public int getMuffinSum()
+    public int GetPotionSum()
     {
-        return muffinSum;
+        return potionSum;
     }
 
     public int getBasicEnemiesKilled()
@@ -202,14 +202,14 @@ public class GameManager : MonoBehaviour
         return angryHeavyEnemiesKilled;
     }
 
-    public void addMuffinCount()
+    public void AddPotionCount()
     {
-        muffinSum++;
+        potionSum++;
     }
 
-    public void resetMuffinCount()
+    public void ResetPotionCount()
     {
-        muffinSum = 0;
+        potionSum = 0;
     }
 
     public void addBasicEnemyKill()

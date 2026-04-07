@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
     {
         potionCount++;
         updateProgressBar();
-        GameManager.Singleton.addMuffinCount();
+        GameManager.Singleton.AddPotionCount();
 
         if (PotionGoalReached())
         {
@@ -46,7 +46,7 @@ public class LevelManager : MonoBehaviour
 
     public bool PotionGoalReached() 
     {
-        return(potionCount >= GameManager.Singleton.GetCurrentMuffinsNeeded());
+        return(potionCount >= GameManager.Singleton.GetCurrentPotionsNeeded());
     }
 
     private void SpawnNextMapPortal()
@@ -54,6 +54,11 @@ public class LevelManager : MonoBehaviour
         Vector2 spawnLocation = MuffinSpawner.Singleton.GetRandomLocation() + portalHeightOffset;
         GameObject _portal = Instantiate(portalObject, spawnLocation, Quaternion.identity);
         _portal.GetComponent<NextMapPortal>().ShowPortal();
+    }
+
+    public void SpawnStartMapPortal()
+    {
+        
     }
 
     public void increaseDifficulty()
@@ -73,13 +78,13 @@ public class LevelManager : MonoBehaviour
 
     private void updateProgressBar()
     {
-        float percentageComplete = (float)potionCount / (float)GameManager.Singleton.GetCurrentMuffinsNeeded();
+        float percentageComplete = (float)potionCount / (float)GameManager.Singleton.GetCurrentPotionsNeeded();
         potionProgressBar.value = percentageComplete;
     }
 
     public float GetPredictionProgress()
     {
-        float predPercentage = (float)(potionCount + 1) / (float)GameManager.Singleton.GetCurrentMuffinsNeeded();
+        float predPercentage = (float)(potionCount + 1) / (float)GameManager.Singleton.GetCurrentPotionsNeeded();
         return((predPercentage > 1f) ? 1f : predPercentage);
     }
 }
