@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour
                 Transform spawnPoint = GetRandomSpawnPoint();
                 if (spawnPoint != null)
                 {
+                    LevelManager.Singleton.SpawnStartMapPortal(spawnPoint.position);
                     spawnedPlayer.transform.position = spawnPoint.position;
                 }
             }

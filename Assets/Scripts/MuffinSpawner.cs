@@ -31,6 +31,11 @@ public class MuffinSpawner : MonoBehaviour
             Debug.LogWarning("No platforms available to spawn Potion!");
             return;
         }
+        else if(LevelManager.Singleton.PotionGoalReached())
+        {
+            Debug.Log("Reached potion goal! No need to spawn anymore potions.");
+            return;
+        }
     
         // int newMuffinPlatform_Index = Random.Range(0, platforms.Count);
         // muffinPlatform = platforms[newMuffinPlatform_Index];

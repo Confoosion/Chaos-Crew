@@ -8,11 +8,6 @@ public class NextMapPortal : MonoBehaviour
     private Vector3 portalScale = new Vector3(0.75f, 1f, 1f);
     private bool isOpened = false;
 
-    void Start()
-    {
-        ShowPortal();
-    }
-
     void OnTriggerStay2D(Collider2D collider)
     {
         if(collider.transform.CompareTag("Player") && isOpened)

@@ -56,9 +56,10 @@ public class LevelManager : MonoBehaviour
         _portal.GetComponent<NextMapPortal>().ShowPortal();
     }
 
-    public void SpawnStartMapPortal()
+    public void SpawnStartMapPortal(Vector2 location)
     {
-        
+        GameObject _portal = Instantiate(portalObject, location, Quaternion.identity);
+        _portal.GetComponent<NextMapPortal>().HidePortal();
     }
 
     public void increaseDifficulty()
