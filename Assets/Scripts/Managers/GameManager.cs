@@ -10,18 +10,20 @@ public class GameManager : MonoBehaviour
     public static GameManager Singleton { get; private set; }
 
     [Header("Player")]
+    public GameObject playerObject;
+    public GameObject spawnedPlayer {get; private set;}
     private bool isAlive = true;
     private bool isPaused = false;
-    [SerializeField] public GameObject playerObject;
-    public GameObject spawnedPlayer {get; private set;}
 
+    [Header("Screens")]
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject endScreen;
     [SerializeField] private GameObject pauseScreen;
-    [SerializeField] private int START_POTIONS_NEEDED = 5;
 
     [Space]
+    [SerializeField] private int START_POTIONS_NEEDED = 5;
     [SerializeField] private int potionsNeededToMoveOn = 5;
+    private int potionIncrement = 5;
 
     private EndScreenScript endScreenScript;
 
@@ -105,16 +107,18 @@ public class GameManager : MonoBehaviour
         PrepareSceneChange();
         SceneManager.LoadScene(newMapIndex);
 
-        potionsNeededToMoveOn += potionsNeededToMoveOn;
+        potionsNeededToMoveOn += potionIncrement;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Runs this only if it's a MAP (player is in game)
         if (scene.name != "MainMenu" && scene.name != "ShopTest")
         {
             if (!GameObject.FindGameObjectWithTag("Player"))
             {
                 spawnedPlayer = Instantiate(playerObject);
+                DontDestroyOnLoad(spawnedPlayer);
                 CharacterManager.Singleton.characterTransform = spawnedPlayer.transform;
                 CharacterManager.Singleton.characterModel = spawnedPlayer.GetComponentInChildren<SpriteRenderer>();
             }
@@ -134,7 +138,8 @@ public class GameManager : MonoBehaviour
     private void PrepareSceneChange()
     {
         spawnedPlayer.transform.SetParent(null);
-        DontDestroyOnLoad(spawnedPlayer);
+        spawnedPlayer.SetActive(true);
+        // DontDestroyOnLoad(spawnedPlayer);
     }
 
     private Transform GetRandomSpawnPoint()

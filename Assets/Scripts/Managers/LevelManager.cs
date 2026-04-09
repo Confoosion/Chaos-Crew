@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
@@ -24,11 +25,30 @@ public class LevelManager : MonoBehaviour
     }
     void Start()
     {
+        StartCoroutine(StartTheScene());
+        // TransitionAnimations.Singleton.FadeOut();
+        // ResetPotionCount();
+        // resetDifficulty();
+        // updateProgressBar();
+
+        // MuffinSpawner.Singleton.SpawnPotion();
+    }
+
+    IEnumerator StartTheScene()
+    {
         ResetPotionCount();
         resetDifficulty();
         updateProgressBar();
+        
+        yield return new WaitForSeconds(0.5f);
+
+        TransitionAnimations.Singleton.FadeOut();
+        GameManager.Singleton.spawnedPlayer.GetComponent<PlayerAttack>().ResetAttackCooldown();
+
+        yield return new WaitForSeconds(1f);
 
         MuffinSpawner.Singleton.SpawnPotion();
+        SpawnerManager.Singleton.StartSpawners();
     }
 
     public void AddPotion()

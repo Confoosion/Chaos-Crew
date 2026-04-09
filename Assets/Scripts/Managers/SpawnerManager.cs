@@ -38,13 +38,17 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        StartCoroutine(startGame());
+    // void Start()
+    // {
+    //     StartCoroutine(BeginSpawning());
+    // }
 
+    public void StartSpawners()
+    {
+        StartCoroutine(BeginSpawning());
     }
 
-    IEnumerator startGame()
+    IEnumerator BeginSpawning()
     {
         while (!stopGame)
         {
