@@ -26,12 +26,6 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartTheScene());
-        // TransitionAnimations.Singleton.FadeOut();
-        // ResetPotionCount();
-        // resetDifficulty();
-        // updateProgressBar();
-
-        // MuffinSpawner.Singleton.SpawnPotion();
     }
 
     IEnumerator StartTheScene()
@@ -59,7 +53,6 @@ public class LevelManager : MonoBehaviour
 
         if (PotionGoalReached())
         {
-            // GameManager.Singleton.NextLevel();
             SpawnNextMapPortal();
         }
     }

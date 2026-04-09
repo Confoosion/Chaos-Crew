@@ -139,7 +139,6 @@ public class GameManager : MonoBehaviour
     {
         spawnedPlayer.transform.SetParent(null);
         spawnedPlayer.SetActive(true);
-        // DontDestroyOnLoad(spawnedPlayer);
     }
 
     private Transform GetRandomSpawnPoint()

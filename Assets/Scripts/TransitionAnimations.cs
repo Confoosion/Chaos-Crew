@@ -49,29 +49,5 @@ public class TransitionAnimations : MonoBehaviour
 
         blackOutImage.color = targetColor;
         fadeRoutine = null;
-
-        // if(fadeIn)
-        // {
-        //     while(blackOutImage.color.a < 255f)
-        //     {
-        //         blackOutImage.color = Color.Lerp(originalColor, new Color(0f, 0f, 0f, 255f), duration);
-        //         duration += Time.deltaTime * fadeAnimSpeed;
-
-        //         yield return new WaitForSeconds(0.1f);
-        //     }
-        // }
-        // else
-        // {
-        //     while(blackOutImage.color.a > 0)
-        //     {
-        //         blackOutImage.color = Color.Lerp(originalColor, new Color(0f, 0f, 0f, 0f), duration);
-        //         duration += Time.deltaTime * fadeAnimSpeed;
-
-        //         yield return new WaitForSeconds(0.1f);
-        //     }
-        // }
-        
-        // blackOutImage.color = new Color(0f, 0f, 0f, (fadeIn) ? 255f : 0f);
-        // fadeRoutine = null;
     }
 }
