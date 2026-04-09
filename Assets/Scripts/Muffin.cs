@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Muffin : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer fortuneTellerSprite;
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))
@@ -13,5 +15,10 @@ public class Muffin : MonoBehaviour
 
             Destroy(this.gameObject);
         }
+    }
+
+    public void ChangeFortuneSprite(Sprite sprite)
+    {
+        fortuneTellerSprite.sprite = sprite;
     }
 }
