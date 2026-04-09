@@ -50,6 +50,10 @@ public class EnemyController : MonoBehaviour
         if(dmgPerk != null && dmgPerk.perkType == PerkType.Damage)
             extraDamage += dmgPerk.value;
 
+        // god mode debug
+        if (PlayerControl.Singleton.GetGodMode()) 
+            extraDamage += 100;
+
         health -= (damage + extraDamage);
         if (health <= 0)
         {

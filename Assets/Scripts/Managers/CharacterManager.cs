@@ -104,4 +104,10 @@ public class CharacterManager : MonoBehaviour
     {
         return(FULL_CHARACTER_LIST);
     }
+
+    public void HandleCharacterDeath()
+    {
+        AddCharacterToList(currentCharacter);
+        currentCharacter = null;
+    }
 }

@@ -246,6 +246,13 @@ public class PlayerControl : MonoBehaviour
             // Open end UI screen 
             GameManager.Singleton.enableDeathScreen();
             SpawnerManager.Singleton.stopGame = true;
+            CharacterManager.Singleton.HandleCharacterDeath();
         }
+    }
+
+    // returns a bool whether if god mode is active or not
+    public bool GetGodMode()
+    {
+        return godMode;
     }
 }
