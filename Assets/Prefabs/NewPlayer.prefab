@@ -91,10 +91,11 @@ MonoBehaviour:
   groundCheck: {fileID: 7667857109142624511}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 1216
   jumpSFX: {fileID: 0}
   jumpVolume: 0
   godMode: 0
+  hasThickboots: 0
 --- !u!114 &4395045806453624289
 MonoBehaviour:
   m_ObjectHideFlags: 0

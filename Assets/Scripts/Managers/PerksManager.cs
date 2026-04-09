@@ -94,6 +94,9 @@ public class PerksManager : MonoBehaviour
             case PerkType.Speed:
                 playerControl.MAXSPEED += perk.value;
                 break;
+            case PerkType.ThickBoots:
+                playerControl.EquipThickBoots(true);
+                break;
             // case PerkType.Damage:
             //     // Implemented in EnemyController (when taking damage, checks for damage perk and applies dmg value)
             //     break;
@@ -115,6 +118,9 @@ public class PerksManager : MonoBehaviour
                 break;
             case PerkType.Speed:
                 playerControl.MAXSPEED -= perk.value;
+                break;
+            case PerkType.ThickBoots:
+                playerControl.EquipThickBoots(false);
                 break;
             // case PerkType.FortuneTeller:
             //     break;

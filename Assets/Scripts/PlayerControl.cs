@@ -37,6 +37,10 @@ public class PlayerControl : MonoBehaviour
     private bool isFacingRight;
     private int extraJumpCount;
     private bool onGround = true;
+    
+    // Thick Boots Perk settings
+    [SerializeField] private bool hasThickboots = false;
+    [SerializeField] private bool standingOnEnemy = false;
 
     public static PlayerControl Singleton;
 
@@ -150,12 +154,23 @@ public class PlayerControl : MonoBehaviour
 
     private bool IsGrounded()
     {
-        bool grounded = Physics2D.OverlapCircle(groundCheck.position, 0.3f, groundLayer);
+        Collider2D hit = Physics2D.OverlapCircle(groundCheck.position, 0.4f, groundLayer);
+        
+        bool grounded = hit != null;
 
-        if (grounded)
+        if(grounded)
+        {
             ResetJumps();
 
-        return grounded;
+            if(hit.gameObject.layer == LayerMask.NameToLayer("Enemy") && hasThickboots)
+            {
+                standingOnEnemy = true;
+            }
+        }
+        else
+            standingOnEnemy = false;
+
+        return(grounded);
     }
 
     // Flips player into looking left or right
@@ -177,7 +192,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Used if player equips Double Jump Perk
-    private void ResetJumps()
+    public void ResetJumps()
     {
         if (extraJumps > 0)
         {
@@ -229,6 +244,10 @@ public class PlayerControl : MonoBehaviour
         if(speed > 15f)
             speed = 15f;
     }
+
+    public bool HasThickBoots() => hasThickboots; 
+    public void EquipThickBoots(bool equip) => hasThickboots = equip;
+    public bool IsStandingOnEnemy() => standingOnEnemy;
 
     public void playerDeath()
     {

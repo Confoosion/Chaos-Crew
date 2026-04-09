@@ -31,7 +31,7 @@ public class BasicEnemyMovement : EnemyController
             direction *= -1;
             UpdateSpriteDirection();
         }
-        else if(collision.transform.CompareTag("Player"))
+        else if(collision.transform.CompareTag("Player") && !PlayerControl.Singleton.IsStandingOnEnemy())
         {
             KillPlayer(collision.gameObject);
         }

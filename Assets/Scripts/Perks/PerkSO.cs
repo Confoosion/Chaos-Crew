@@ -14,7 +14,8 @@ public enum PerkType
     Speed,
     Damage,
     SlowEnemies,
-    FortuneTeller
+    FortuneTeller,
+    ThickBoots
 }
 
 [CreateAssetMenu(menuName = "Perks/Perk")]
