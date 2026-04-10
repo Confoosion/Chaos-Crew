@@ -36,16 +36,15 @@ public class MuffinSpawner : MonoBehaviour
             Debug.Log("Reached potion goal! No need to spawn anymore potions.");
             return;
         }
-    
-        // int newMuffinPlatform_Index = Random.Range(0, platforms.Count);
-        // muffinPlatform = platforms[newMuffinPlatform_Index];
-        // platforms.RemoveAt(newMuffinPlatform_Index);
 
-        // Bounds bounds = muffinPlatform.GetComponent<SpriteRenderer>().bounds;
-        // float randomX = Random.Range(bounds.min.x + spawnOffset, bounds.max.x - spawnOffset);
-        // float y = bounds.max.y + spawnHeight;
+        GameObject potion = Instantiate(potionObj, GetRandomLocation(), Quaternion.identity);
 
-        Instantiate(potionObj, GetRandomLocation(), Quaternion.identity);
+        PerkSO fortuneTellerPerk = PerksManager.Singleton.GetActivePerk();
+        if(fortuneTellerPerk != null && fortuneTellerPerk.perkType == PerkType.FortuneTeller)
+        {
+            Sprite model = CharacterManager.Singleton.GetNextCharacter().characterModel;
+            potion.GetComponent<Muffin>().ChangeFortuneSprite(model);
+        }
     }
 
     private void AddPlatforms()

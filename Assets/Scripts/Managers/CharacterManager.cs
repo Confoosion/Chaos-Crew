@@ -55,6 +55,10 @@ public class CharacterManager : MonoBehaviour
 
     public void BecomeNewCharacter(CharacterSO specificCharacter = null)
     {
+        lastThreeCharacters[2] = lastThreeCharacters[1];
+        lastThreeCharacters[1] = lastThreeCharacters[0];
+        lastThreeCharacters[0] = currentCharacter;
+
         // Become specific character based on parameter
         if (specificCharacter != null)
         {
@@ -64,57 +68,59 @@ public class CharacterManager : MonoBehaviour
         // Become a randomly chosen character
         else
         {
-            // If the next character is known, become it
-            if(nextCharacter != null)
-            {
-                currentCharacter = nextCharacter;
-            }
-            // Otherwise, just randomly pick the character
-            else
-            {
-                currentCharacter = PickRandomCharacter();
-            }
-        }
+            if(remainingCharacters.Count == 0)
+                RefillCharacterList();
 
-        if(characterList.Count > 4)
-        {
-            lastThreeCharacters[2] = lastThreeCharacters[1];
-            lastThreeCharacters[1] = lastThreeCharacters[0];
-            lastThreeCharacters[0] = currentCharacter;
+            currentCharacter = remainingCharacters[0];
+            remainingCharacters.RemoveAt(0);
         }
 
         if (PlayerAttack.Singleton) 
             PlayerAttack.Singleton.SetCharacter(currentCharacter);
-
-        nextCharacter = PickRandomCharacter();
     }
 
-    private CharacterSO PickRandomCharacter()
+    public CharacterSO GetNextCharacter()
     {
         if(remainingCharacters.Count == 0)
-        {   // Refill the list
             RefillCharacterList();
-        }
 
-        CharacterSO selected = nextCharacter;
-        int randomIndex = 0;
-        if(characterList.Count > 4)
+        return(remainingCharacters[0]);
+    }
+
+    private void RefillCharacterList()
+    {
+        remainingCharacters = new List<CharacterSO>(characterList);
+
+        // Shuffle the list
+        for(int i = remainingCharacters.Count - 1; i > 0; i--)
         {
-            while(lastThreeCharacters.Contains(selected))
-            {
-                randomIndex = Random.Range(0, remainingCharacters.Count);
-                selected = remainingCharacters[randomIndex];
-            }
+            int j = Random.Range(0, i + 1);
+            (remainingCharacters[i], remainingCharacters[j]) = (remainingCharacters[j], remainingCharacters[i]);
         }
-        else
+
+        int protectCount = characterList.Count switch
         {
-            randomIndex = Random.Range(0, remainingCharacters.Count);
-            selected = remainingCharacters[randomIndex];
+            <= 3 => 1,
+            <= 5 => 2,
+            _    => 3
+        };
+
+        List<CharacterSO> recentCharacters = new();
+        recentCharacters.Add(currentCharacter);
+        for(int i = 0; i < lastThreeCharacters.Length && recentCharacters.Count < protectCount; i++)
+        {
+            if(lastThreeCharacters[i] != null)
+                recentCharacters.Add(lastThreeCharacters[i]);
         }
 
-        remainingCharacters.RemoveAt(randomIndex);
+        for(int i = 0; i < protectCount; i++)
+        {
+            if(!recentCharacters.Contains(remainingCharacters[i])) continue;
 
-        return(selected);
+            int swapTarget = remainingCharacters.FindIndex(protectCount, c => !recentCharacters.Contains(c));
+            if(swapTarget != -1)
+                (remainingCharacters[i], remainingCharacters[swapTarget]) = (remainingCharacters[swapTarget], remainingCharacters[i]);
+        }
     }
 
     public void UpdateCharacterList()
@@ -129,12 +135,8 @@ public class CharacterManager : MonoBehaviour
             }
         }
 
+        lastThreeCharacters = new CharacterSO[3];
         RefillCharacterList();
-    }
-
-    private void RefillCharacterList()
-    {
-        remainingCharacters = new List<CharacterSO>(characterList);
     }
 
     public void AddCharacterToList(CharacterSO character)

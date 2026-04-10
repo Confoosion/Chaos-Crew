@@ -19,6 +19,7 @@ public class Muffin : MonoBehaviour
 
     public void ChangeFortuneSprite(Sprite sprite)
     {
+        fortuneTellerSprite.gameObject.SetActive(true);
         fortuneTellerSprite.sprite = sprite;
     }
 }
