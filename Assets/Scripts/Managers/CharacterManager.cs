@@ -10,7 +10,7 @@ public class CharacterManager : MonoBehaviour
 
     [SerializeField] private List<CharacterSO> characterList = new();
     // [SerializeField] private int startingCharacterIndex = 0;
-    private int cooldownThreshold = 4;
+    private int cooldownThreshold = 3;
     private bool cooldownActive = false;
 
     [HideInInspector]
