@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        CharacterManager.Singleton.UpdateCharacterList();
+        CharacterManager.Singleton.InitializeCharacters();
+        // CharacterManager.Singleton.UpdateCharacterList();
 
         disableEndScreen();
         disableDeathScreen();

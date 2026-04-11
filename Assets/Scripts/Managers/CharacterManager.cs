@@ -9,7 +9,7 @@ public class CharacterManager : MonoBehaviour
     public static CharacterManager Singleton { get; private set; }
 
     [SerializeField] private List<CharacterSO> characterList = new();
-    // [SerializeField] private int startingCharacterIndex = 0;
+    private List<CharacterSO> inGameCharacterList = new();
     private int cooldownThreshold = 3;
     private bool cooldownActive = false;
 
@@ -62,7 +62,7 @@ public class CharacterManager : MonoBehaviour
         // ONLY IF cooldown is active
         if(lastCharacter != null && cooldownActive)
         {
-            characterList.Add(lastCharacter);
+            inGameCharacterList.Add(lastCharacter);
         }
         
         // Get temp character data
@@ -76,13 +76,13 @@ public class CharacterManager : MonoBehaviour
         currentCharacter = next;
 
         // Remove current character from character pool
-        characterList.Remove(currentCharacter);
+        inGameCharacterList.Remove(currentCharacter);
 
         // Add last character back to the character pool
         // EARLY, but only if the cooldown isn't active
         if(!cooldownActive && lastCharacter != null)
         {
-            characterList.Add(lastCharacter);
+            inGameCharacterList.Add(lastCharacter);
             lastCharacter = null;
         }
 
@@ -92,23 +92,9 @@ public class CharacterManager : MonoBehaviour
             PlayerAttack.Singleton.SetCharacter(currentCharacter);
     }
 
-    // private void BecomeSpecificCharacter(CharacterSO character)
-    // {
-    //     CharacterSO previous = currentCharacter;
-    //     lastCharacter = previous;
-
-    //     currentCharacter = character;
-    //     playedCharacters.Add(character);
-
-    //     characterList.Remove(currentCharacter);
-
-    //     if (PlayerAttack.Singleton) 
-    //         PlayerAttack.Singleton.SetCharacter(currentCharacter);
-    // }
-
     private CharacterSO RollNext()
     {
-        return(characterList[Random.Range(0, characterList.Count)]);
+        return(inGameCharacterList[Random.Range(0, inGameCharacterList.Count)]);
     }
 
     public CharacterSO GetCurrentCharacter()
@@ -132,6 +118,8 @@ public class CharacterManager : MonoBehaviour
                 characterList.Add(character.GetCurrentUpgrade().character);
             }
         }
+
+        inGameCharacterList = new List<CharacterSO>(characterList);
 
         if(characterList.Count > cooldownThreshold)
             cooldownActive = true;
