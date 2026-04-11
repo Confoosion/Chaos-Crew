@@ -9,7 +9,9 @@ public class CharacterManager : MonoBehaviour
     public static CharacterManager Singleton { get; private set; }
 
     [SerializeField] private List<CharacterSO> characterList = new();
-    [SerializeField] private List<CharacterSO> remainingCharacters = new();
+    // [SerializeField] private int startingCharacterIndex = 0;
+    private int cooldownThreshold = 4;
+    private bool cooldownActive = false;
 
     [HideInInspector]
     public Transform characterTransform;
@@ -18,7 +20,7 @@ public class CharacterManager : MonoBehaviour
 
     private CharacterSO currentCharacter;
     private CharacterSO nextCharacter;
-    [SerializeField] private CharacterSO[] lastThreeCharacters = new CharacterSO[3];
+    private CharacterSO lastCharacter;
 
     [Space]
     [SerializeField] private CharacterSetSO[] FULL_CHARACTER_LIST;
@@ -37,15 +39,76 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
-    // void Start()
-    // {
-    //     remainingCharacters = new List<CharacterSO>(characterList);
-    // }
-
     public void ChangeCharacter(Sprite newModel, float atkCD)
     {
         characterModel.sprite = newModel;
         PlayerAttack.Singleton.attackCD = atkCD;
+    }
+
+    public void InitializeCharacters()
+    {
+        cooldownActive = false;
+        UpdateCharacterList();
+
+        // currentCharacter = characterList[startingCharacterIndex];
+        // playedCharacters.Add(currentCharIndex);
+
+        nextCharacter = RollNext();
+    }
+
+    public void BecomeNewCharacter(CharacterSO specificCharacter = null)
+    {
+        // Add last character back to the character pool
+        // ONLY IF cooldown is active
+        if(lastCharacter != null && cooldownActive)
+        {
+            characterList.Add(lastCharacter);
+        }
+        
+        // Get temp character data
+        CharacterSO previous = currentCharacter;
+        CharacterSO next = specificCharacter != null ? specificCharacter : nextCharacter;
+
+        // Get new last character (current character)
+        lastCharacter = previous;
+
+        // HERE is where we actually get the new character
+        currentCharacter = next;
+
+        // Remove current character from character pool
+        characterList.Remove(currentCharacter);
+
+        // Add last character back to the character pool
+        // EARLY, but only if the cooldown isn't active
+        if(!cooldownActive && lastCharacter != null)
+        {
+            characterList.Add(lastCharacter);
+            lastCharacter = null;
+        }
+
+        nextCharacter = RollNext();
+
+        if (PlayerAttack.Singleton) 
+            PlayerAttack.Singleton.SetCharacter(currentCharacter);
+    }
+
+    // private void BecomeSpecificCharacter(CharacterSO character)
+    // {
+    //     CharacterSO previous = currentCharacter;
+    //     lastCharacter = previous;
+
+    //     currentCharacter = character;
+    //     playedCharacters.Add(character);
+
+    //     characterList.Remove(currentCharacter);
+
+    //     if (PlayerAttack.Singleton) 
+    //         PlayerAttack.Singleton.SetCharacter(currentCharacter);
+    // }
+
+    private CharacterSO RollNext()
+    {
+        return(characterList[Random.Range(0, characterList.Count)]);
     }
 
     public CharacterSO GetCurrentCharacter()
@@ -53,74 +116,9 @@ public class CharacterManager : MonoBehaviour
         return(currentCharacter);
     }
 
-    public void BecomeNewCharacter(CharacterSO specificCharacter = null)
-    {
-        lastThreeCharacters[2] = lastThreeCharacters[1];
-        lastThreeCharacters[1] = lastThreeCharacters[0];
-        lastThreeCharacters[0] = currentCharacter;
-
-        // Become specific character based on parameter
-        if (specificCharacter != null)
-        {
-            currentCharacter = specificCharacter;
-            remainingCharacters.Remove(specificCharacter);
-        }
-        // Become a randomly chosen character
-        else
-        {
-            if(remainingCharacters.Count == 0)
-                RefillCharacterList();
-
-            currentCharacter = remainingCharacters[0];
-            remainingCharacters.RemoveAt(0);
-        }
-
-        if (PlayerAttack.Singleton) 
-            PlayerAttack.Singleton.SetCharacter(currentCharacter);
-    }
-
     public CharacterSO GetNextCharacter()
     {
-        if(remainingCharacters.Count == 0)
-            RefillCharacterList();
-
-        return(remainingCharacters[0]);
-    }
-
-    private void RefillCharacterList()
-    {
-        remainingCharacters = new List<CharacterSO>(characterList);
-
-        // Shuffle the list
-        for(int i = remainingCharacters.Count - 1; i > 0; i--)
-        {
-            int j = Random.Range(0, i + 1);
-            (remainingCharacters[i], remainingCharacters[j]) = (remainingCharacters[j], remainingCharacters[i]);
-        }
-
-        int protectCount = characterList.Count switch
-        {
-            <= 3 => 1,
-            <= 5 => 2,
-            _    => 3
-        };
-
-        List<CharacterSO> recentCharacters = new();
-        recentCharacters.Add(currentCharacter);
-        for(int i = 0; i < lastThreeCharacters.Length && recentCharacters.Count < protectCount; i++)
-        {
-            if(lastThreeCharacters[i] != null)
-                recentCharacters.Add(lastThreeCharacters[i]);
-        }
-
-        for(int i = 0; i < protectCount; i++)
-        {
-            if(!recentCharacters.Contains(remainingCharacters[i])) continue;
-
-            int swapTarget = remainingCharacters.FindIndex(protectCount, c => !recentCharacters.Contains(c));
-            if(swapTarget != -1)
-                (remainingCharacters[i], remainingCharacters[swapTarget]) = (remainingCharacters[swapTarget], remainingCharacters[i]);
-        }
+        return(nextCharacter);
     }
 
     public void UpdateCharacterList()
@@ -135,8 +133,8 @@ public class CharacterManager : MonoBehaviour
             }
         }
 
-        lastThreeCharacters = new CharacterSO[3];
-        RefillCharacterList();
+        if(characterList.Count > cooldownThreshold)
+            cooldownActive = true;
     }
 
     public void AddCharacterToList(CharacterSO character)
