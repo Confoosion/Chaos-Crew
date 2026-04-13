@@ -36,7 +36,9 @@ public class LevelManager : MonoBehaviour
         
         yield return new WaitForSeconds(0.5f);
 
-        TransitionAnimations.Singleton.FadeOut();
+        if(TransitionAnimations.Singleton)
+            TransitionAnimations.Singleton.FadeOut();
+            
         GameManager.Singleton.spawnedPlayer.GetComponent<PlayerAttack>().ResetAttackCooldown();
 
         yield return new WaitForSeconds(1f);

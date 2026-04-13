@@ -132,7 +132,7 @@ public class CharacterManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "RuinedCityMap")
+        if (scene.name == "RuinedCityMap" || scene.name == "Debug")
         {
             BecomeNewCharacter(characterList[0]);
         }

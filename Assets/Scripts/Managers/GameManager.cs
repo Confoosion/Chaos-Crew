@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
     {
         int tempCurrency = 0;
         ShopSaveSystem.Load(CharacterManager.Singleton.GetFullCharacterList(), out tempCurrency);
+        // if(DebugScene_Script.Singleton)
+        //     DebugScene_Script.Singleton.DebugStart();
         pauseScreen.SetActive(false);
     }
 
@@ -126,6 +128,12 @@ public class GameManager : MonoBehaviour
 
             if (spawnedPlayer != null)
             {
+            #if UNITY_EDITOR
+                int tempCurrency;
+                ShopSaveSystem.Load(CharacterManager.Singleton.GetFullCharacterList(), out tempCurrency);
+                CharacterManager.Singleton.InitializeCharacters();
+            #endif
+
                 Transform spawnPoint = GetRandomSpawnPoint();
                 if (spawnPoint != null)
                 {
