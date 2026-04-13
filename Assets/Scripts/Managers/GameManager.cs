@@ -75,7 +75,8 @@ public class GameManager : MonoBehaviour
 
         potionsNeededToMoveOn = START_POTIONS_NEEDED;
 
-        SceneManager.LoadScene("RuinedCityMap");
+        //SceneManager.LoadScene("RuinedCityMap");
+        SceneManager.LoadScene("FarmMapTile");
 
         if(PlayerControl.Singleton)
         {
