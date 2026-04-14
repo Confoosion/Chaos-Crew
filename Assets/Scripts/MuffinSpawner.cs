@@ -6,9 +6,8 @@ public class MuffinSpawner : MonoBehaviour
 {
     public static MuffinSpawner Singleton { get; private set; }
     [SerializeField] private GameObject potionObj;
-    [SerializeField] private float spawnOffset = 1.5f;
-    [SerializeField] private float spawnHeight = 5f;
-    [SerializeField] private List<Transform> platforms = new List<Transform>();
+    private float spawnHeight = 1.5f;
+    private List<Transform> platforms = new List<Transform>();
     private Transform potionPlatform;
 
     void Awake()
@@ -74,7 +73,7 @@ public class MuffinSpawner : MonoBehaviour
             platforms.Add(prev);
 
         Bounds bounds = potionPlatform.GetComponent<SpriteRenderer>().bounds;
-        float randomX = Random.Range(bounds.min.x + spawnOffset, bounds.max.x - spawnOffset);
+        float randomX = Random.Range(bounds.min.x, bounds.max.x);
         float y = bounds.max.y + spawnHeight;
         
         return(new Vector2(randomX, y));

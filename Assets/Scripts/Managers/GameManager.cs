@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour
     {
         int tempCurrency = 0;
         ShopSaveSystem.Load(CharacterManager.Singleton.GetFullCharacterList(), out tempCurrency);
-        // if(DebugScene_Script.Singleton)
-        //     DebugScene_Script.Singleton.DebugStart();
         pauseScreen.SetActive(false);
     }
 
@@ -78,7 +76,7 @@ public class GameManager : MonoBehaviour
         potionsNeededToMoveOn = START_POTIONS_NEEDED;
 
         SceneManager.LoadScene("RuinedCityMap");
-        //SceneManager.LoadScene("FarmMapTile");
+        // SceneManager.LoadScene("BombMap");
 
         if(PlayerControl.Singleton)
         {
