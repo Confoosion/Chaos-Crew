@@ -129,11 +129,12 @@ public class GameManager : MonoBehaviour
 
             if (spawnedPlayer != null)
             {
-            #if UNITY_EDITOR
-                int tempCurrency;
-                ShopSaveSystem.Load(CharacterManager.Singleton.GetFullCharacterList(), out tempCurrency);
-                CharacterManager.Singleton.InitializeCharacters();
-            #endif
+                if(scene.name == "Debug")
+                {
+                    int tempCurrency;
+                    ShopSaveSystem.Load(CharacterManager.Singleton.GetFullCharacterList(), out tempCurrency);
+                    CharacterManager.Singleton.InitializeCharacters();
+                }
 
                 Transform spawnPoint = GetRandomSpawnPoint();
                 if (spawnPoint != null)

@@ -8,7 +8,7 @@ public class MuffinSpawner : MonoBehaviour
     [SerializeField] private GameObject potionObj;
     [SerializeField] private float spawnOffset = 1.5f;
     [SerializeField] private float spawnHeight = 5f;
-    private List<Transform> platforms = new List<Transform>();
+    [SerializeField] private List<Transform> platforms = new List<Transform>();
     private Transform potionPlatform;
 
     void Awake()
@@ -28,8 +28,9 @@ public class MuffinSpawner : MonoBehaviour
 
         if (platforms.Count == 0)
         {
-            Debug.LogWarning("No platforms available to spawn Potion!");
-            return;
+            AddPlatforms();
+            // Debug.LogWarning("No platforms available to spawn Potion!");
+            // return;
         }
         else if(LevelManager.Singleton.PotionGoalReached())
         {
@@ -49,15 +50,20 @@ public class MuffinSpawner : MonoBehaviour
 
     private void AddPlatforms()
     {
-        foreach(Transform platform in transform)
+        Debug.Log($"Child count: {transform.childCount}");
+        for (int i = 0; i < transform.childCount; i++)
         {
-            platforms.Add(platform);
+            platforms.Add(transform.GetChild(i));
+            Debug.Log(transform.GetChild(i));
         }
+
+        Debug.Log("Platforms added : \n" + platforms);
     }
 
     private void ClearPlatforms()
     {
         platforms.Clear();
+        Debug.Log("Platforms cleared!");
     }
 
     public Vector2 GetRandomLocation()

@@ -13,10 +13,7 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private GameObject angryNormalEnemy;
     [SerializeField] private GameObject angryHeavyEnemy;
 
-
-
     [Header("OtherVariables")]
-
 
     [SerializeField] public List<GameObject> spawnersInWorld;
     [SerializeField] public GameObject oneAngrySpawner;
