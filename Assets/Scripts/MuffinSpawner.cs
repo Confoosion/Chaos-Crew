@@ -23,8 +23,8 @@ public class MuffinSpawner : MonoBehaviour
 
     public void SpawnPotion()
     {
-        if(potionPlatform != null)
-            platforms.Add(potionPlatform);
+        // if(potionPlatform != null)
+        //     platforms.Add(potionPlatform);
 
         if (platforms.Count == 0)
         {
@@ -57,14 +57,21 @@ public class MuffinSpawner : MonoBehaviour
 
     private void ClearPlatforms()
     {
+        if(potionPlatform != null)
+            platforms.Add(potionPlatform);
         platforms.Clear();
     }
 
     public Vector2 GetRandomLocation()
     {
+        Transform prev = potionPlatform;
+
         int newPotionPlatform_Index = Random.Range(0, platforms.Count);
         potionPlatform = platforms[newPotionPlatform_Index];
-        platforms.RemoveAt(newPotionPlatform_Index);
+        
+        platforms.Remove(potionPlatform);
+        if(prev != null)
+            platforms.Add(prev);
 
         Bounds bounds = potionPlatform.GetComponent<SpriteRenderer>().bounds;
         float randomX = Random.Range(bounds.min.x + spawnOffset, bounds.max.x - spawnOffset);

@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
     public int difficulty = 1;
 
     [SerializeField] private GameObject portalObject;
-    private Vector2 portalHeightOffset = new Vector2(0f, -3f);
+    private Vector2 portalHeightOffset = new Vector2(0f, 0.5f);
 
     void Awake()
     {
