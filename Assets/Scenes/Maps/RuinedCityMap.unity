@@ -1270,7 +1270,6 @@ GameObject:
   - component: {fileID: 1181670405}
   - component: {fileID: 1181670404}
   - component: {fileID: 1181670403}
-  - component: {fileID: 1181670402}
   m_Layer: 6
   m_Name: Platforms
   m_TagString: Terrain
@@ -1293,21 +1292,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1711175971}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1181670402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1181670400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ddbe1c3b055fd94aa58e1c573b0bd7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MuffinSpawner
-  potionObj: {fileID: 3183216167711710016, guid: 12b35574bf851e24085d31f255660c52, type: 3}
-  spawnOffset: 1.5
-  spawnHeight: 5
 --- !u!251 &1181670403
 PlatformEffector2D:
   m_ObjectHideFlags: 0

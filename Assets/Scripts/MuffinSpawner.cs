@@ -28,9 +28,8 @@ public class MuffinSpawner : MonoBehaviour
 
         if (platforms.Count == 0)
         {
-            AddPlatforms();
-            // Debug.LogWarning("No platforms available to spawn Potion!");
-            // return;
+            Debug.LogWarning("No platforms available to spawn Potion!");
+            return;
         }
         else if(LevelManager.Singleton.PotionGoalReached())
         {
@@ -50,20 +49,15 @@ public class MuffinSpawner : MonoBehaviour
 
     private void AddPlatforms()
     {
-        Debug.Log($"Child count: {transform.childCount}");
-        for (int i = 0; i < transform.childCount; i++)
+        foreach(Transform platform in transform)
         {
-            platforms.Add(transform.GetChild(i));
-            Debug.Log(transform.GetChild(i));
+            platforms.Add(platform);
         }
-
-        Debug.Log("Platforms added : \n" + platforms);
     }
 
     private void ClearPlatforms()
     {
         platforms.Clear();
-        Debug.Log("Platforms cleared!");
     }
 
     public Vector2 GetRandomLocation()
