@@ -21,12 +21,13 @@ public class ProjectileAttack : MonoBehaviour
     private float impactDamage;
     private float impactDuration;
     private LayerMask layerMask;
-    private float raycastDistance = 0.5f;
+    [SerializeField] private float raycastDistance = 0.5f;
+    [SerializeField] private float boxHeight = 0.5f;
     [SerializeField] private Transform raycastTransform;
 
     void Awake()
     {
-        layerMask = LayerMask.GetMask("Wall", "Ground", "Enemy");
+        layerMask = LayerMask.GetMask("Wall", "Ground", "MovingGround");
     }
 
     public void SetData(float dmg, float vel, float direction, int piercing = 0, int bounces = 0)
@@ -50,76 +51,58 @@ public class ProjectileAttack : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(speed * facing, (physicsObject) ? rb.linearVelocity.y : 0f);
-
-        RaycastHit2D hitCollision = Physics2D.Raycast(raycastTransform.position, new Vector2(facing, 0f), raycastDistance, layerMask);
-        Debug.DrawRay(raycastTransform.position, new Vector2(facing, 0f) * raycastDistance, Color.red);
-
-        if(hitCollision.collider != null)
-        {
-            if(hitCollision.distance <= 0.2f)
-            {
-                CollisionActive(hitCollision.collider);
-            }
-        }
     }
 
-    private void CollisionActive(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.CompareTag("Enemy"))
+        if (collider.CompareTag("Enemy"))
         {
             collider.gameObject.GetComponent<EnemyController>().enemyTakeDamage(damage);
-
-            if(pierceAmount > 0 && pierces < pierceAmount)
+            if (pierceAmount > 0 && pierces < pierceAmount)
+            {
                 pierces++;
-            else if(canBounceOffEnemies && bounceAmount > 0)
+            }
+            else if (canBounceOffEnemies && bounceAmount > 0)
+            {
                 DoBounce();
+            }
             else
+            {
                 ProjectileDespawn();
-        }
-        else
-        {
-            if(canBounceOffWalls && bounceAmount > 0)
-                DoBounce();
-            else if(!canRollOnGround)
-                ProjectileDespawn();
+            }
         }
 
         SoundManager.Singleton.PlayAttackAudio(collision_SFX);
     }
 
-    // void OnTriggerEnter2D(Collider2D collider)
-    // {
-    //     if (collider.CompareTag("Enemy"))
-    //     {
-    //         collider.gameObject.GetComponent<EnemyController>().enemyTakeDamage(damage);
-    //         if (pierceAmount > 0 && pierces < pierceAmount)
-    //         {
-    //             pierces++;
-    //         }
-    //         else if (canBounceOffEnemies && bounceAmount > 0)
-    //         {
-    //             DoBounce();
-    //         }
-    //         else
-    //         {
-    //             ProjectileDespawn();
-    //         }
-    //     }
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(!collider.CompareTag("Enemy"))
+        {
+            RaycastHit2D hitCollision = Physics2D.BoxCast(
+                raycastTransform.position,
+                new Vector2(0.1f, boxHeight),
+                0f,
+                new Vector2(facing, 0f),
+                raycastDistance,
+                layerMask
+            );
+            DrawBoxCastGizmo(raycastTransform.position, new Vector2(0.1f, boxHeight), new Vector2(facing, 0f), raycastDistance, Color.red);
 
-    //     if (collider.CompareTag("Terrain"))
-    //     {
-    //         if (canBounceOffWalls && bounceAmount > 0 && collider.gameObject.layer == layerMask)
-    //         {
-    //             DoBounce();
-    //         }
-    //         else if(!canRollOnGround)
-    //         {
-    //             ProjectileDespawn();
-    //         }
-    //     }
 
-    //     SoundManager.Singleton.PlayAttackAudio(collision_SFX);
-    // }
+            if(hitCollision.collider != null)
+            {
+                if(canBounceOffWalls && bounceAmount > 0)
+                {
+                    DoBounce();
+                }
+                else if(!canRollOnGround)
+                {
+                    ProjectileDespawn();
+                }
+            }
+        }
+    }
 
     void DoBounce()
     {
@@ -145,4 +128,26 @@ public class ProjectileAttack : MonoBehaviour
             }
         }
     }
+
+    // UNCOMMENT THIS CODE if you wanna see the raycast box for collisions (wall detection) 
+
+    // void DrawBoxCastGizmo(Vector2 origin, Vector2 size, Vector2 direction, float distance, Color color)
+    // {
+    //     Vector2 end = origin + direction * distance;
+    //     // Draw the start box
+    //     Debug.DrawLine(origin + new Vector2(-size.x / 2, -size.y / 2), origin + new Vector2(size.x / 2, -size.y / 2), color);
+    //     Debug.DrawLine(origin + new Vector2(-size.x / 2,  size.y / 2), origin + new Vector2(size.x / 2,  size.y / 2), color);
+    //     Debug.DrawLine(origin + new Vector2(-size.x / 2, -size.y / 2), origin + new Vector2(-size.x / 2, size.y / 2), color);
+    //     Debug.DrawLine(origin + new Vector2( size.x / 2, -size.y / 2), origin + new Vector2( size.x / 2, size.y / 2), color);
+    //     // Draw the end box
+    //     Debug.DrawLine(end + new Vector2(-size.x / 2, -size.y / 2), end + new Vector2(size.x / 2, -size.y / 2), color);
+    //     Debug.DrawLine(end + new Vector2(-size.x / 2,  size.y / 2), end + new Vector2(size.x / 2,  size.y / 2), color);
+    //     Debug.DrawLine(end + new Vector2(-size.x / 2, -size.y / 2), end + new Vector2(-size.x / 2, size.y / 2), color);
+    //     Debug.DrawLine(end + new Vector2( size.x / 2, -size.y / 2), end + new Vector2( size.x / 2, size.y / 2), color);
+    //     // Connect start and end
+    //     Debug.DrawLine(origin + new Vector2(-size.x / 2, -size.y / 2), end + new Vector2(-size.x / 2, -size.y / 2), color);
+    //     Debug.DrawLine(origin + new Vector2( size.x / 2, -size.y / 2), end + new Vector2( size.x / 2, -size.y / 2), color);
+    //     Debug.DrawLine(origin + new Vector2(-size.x / 2,  size.y / 2), end + new Vector2(-size.x / 2,  size.y / 2), color);
+    //     Debug.DrawLine(origin + new Vector2( size.x / 2,  size.y / 2), end + new Vector2( size.x / 2,  size.y / 2), color);
+    // }
 }
