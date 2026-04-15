@@ -3360,8 +3360,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MuffinSpawner
   potionObj: {fileID: 3183216167711710016, guid: 12b35574bf851e24085d31f255660c52, type: 3}
-  spawnOffset: 1.5
-  spawnHeight: 5
 --- !u!114 &6076020107224946187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3460,7 +3458,7 @@ GameObject:
   - component: {fileID: 2598461138749547155}
   - component: {fileID: 6076020107224946187}
   - component: {fileID: 2075821334654110137}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ENTITY_BORDER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3495,8 +3493,8 @@ Transform:
   m_GameObject: {fileID: 7294483691700142070}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.27, y: -8.53, z: 0}
-  m_LocalScale: {x: 34.7, y: 1, z: 1}
+  m_LocalPosition: {x: -16.03, y: -8.53, z: 0}
+  m_LocalScale: {x: 8.4, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3677892986074082310}

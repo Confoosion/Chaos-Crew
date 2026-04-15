@@ -21,10 +21,12 @@ public class ProjectileAttack : MonoBehaviour
     private float impactDamage;
     private float impactDuration;
     private LayerMask layerMask;
+    private float raycastDistance = 0.5f;
+    [SerializeField] private Transform raycastTransform;
 
     void Awake()
     {
-        layerMask = LayerMask.NameToLayer("Wall");
+        layerMask = LayerMask.GetMask("Wall", "Ground", "Enemy");
     }
 
     public void SetData(float dmg, float vel, float direction, int piercing = 0, int bounces = 0)
@@ -45,50 +47,85 @@ public class ProjectileAttack : MonoBehaviour
         impactDuration = dur;
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void FixedUpdate()
     {
-        if (collider.CompareTag("Enemy"))
+        rb.linearVelocity = new Vector2(speed * facing, (physicsObject) ? rb.linearVelocity.y : 0f);
+
+        RaycastHit2D hitCollision = Physics2D.Raycast(raycastTransform.position, new Vector2(facing, 0f), raycastDistance, layerMask);
+        Debug.DrawRay(raycastTransform.position, new Vector2(facing, 0f) * raycastDistance, Color.red);
+
+        if(hitCollision.collider != null)
         {
-            collider.gameObject.GetComponent<EnemyController>().enemyTakeDamage(damage);
-            if (pierceAmount > 0 && pierces < pierceAmount)
+            if(hitCollision.distance <= 0.2f)
             {
-                pierces++;
-            }
-            else if (canBounceOffEnemies && bounceAmount > 0)
-            {
-                DoBounce();
-            }
-            else
-            {
-                ProjectileDespawn();
+                CollisionActive(hitCollision.collider);
             }
         }
+    }
 
-        if (collider.CompareTag("Terrain"))
+    private void CollisionActive(Collider2D collider)
+    {
+        if(collider.CompareTag("Enemy"))
         {
-            if (canBounceOffWalls && bounceAmount > 0 && collider.gameObject.layer == layerMask)
-            {
+            collider.gameObject.GetComponent<EnemyController>().enemyTakeDamage(damage);
+
+            if(pierceAmount > 0 && pierces < pierceAmount)
+                pierces++;
+            else if(canBounceOffEnemies && bounceAmount > 0)
                 DoBounce();
-            }
-            else if(!canRollOnGround)
-            {
+            else
                 ProjectileDespawn();
-            }
+        }
+        else
+        {
+            if(canBounceOffWalls && bounceAmount > 0)
+                DoBounce();
+            else if(!canRollOnGround)
+                ProjectileDespawn();
         }
 
         SoundManager.Singleton.PlayAttackAudio(collision_SFX);
     }
+
+    // void OnTriggerEnter2D(Collider2D collider)
+    // {
+    //     if (collider.CompareTag("Enemy"))
+    //     {
+    //         collider.gameObject.GetComponent<EnemyController>().enemyTakeDamage(damage);
+    //         if (pierceAmount > 0 && pierces < pierceAmount)
+    //         {
+    //             pierces++;
+    //         }
+    //         else if (canBounceOffEnemies && bounceAmount > 0)
+    //         {
+    //             DoBounce();
+    //         }
+    //         else
+    //         {
+    //             ProjectileDespawn();
+    //         }
+    //     }
+
+    //     if (collider.CompareTag("Terrain"))
+    //     {
+    //         if (canBounceOffWalls && bounceAmount > 0 && collider.gameObject.layer == layerMask)
+    //         {
+    //             DoBounce();
+    //         }
+    //         else if(!canRollOnGround)
+    //         {
+    //             ProjectileDespawn();
+    //         }
+    //     }
+
+    //     SoundManager.Singleton.PlayAttackAudio(collision_SFX);
+    // }
 
     void DoBounce()
     {
         bounceAmount--;
         facing *= -1f;
         pierces = 0;
-    }
-
-    void FixedUpdate()
-    {
-        rb.linearVelocity = new Vector2(speed * facing, (physicsObject) ? rb.linearVelocity.y : 0f);
     }
 
     private void ProjectileDespawn()

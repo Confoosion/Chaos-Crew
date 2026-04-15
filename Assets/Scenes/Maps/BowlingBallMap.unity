@@ -1321,38 +1321,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1 &482773921
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 482773922}
-  m_Layer: 0
-  m_Name: ENTITY_BORDERS
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &482773922
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482773921}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8952834783701951709}
-  m_Father: {fileID: 3677892986074082310}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &508445171
 GameObject:
   m_ObjectHideFlags: 0
@@ -4248,7 +4216,7 @@ Transform:
   - {fileID: 432688027}
   - {fileID: 1696683002}
   - {fileID: 1596196643}
-  - {fileID: 482773922}
+  - {fileID: 8952834783701951709}
   - {fileID: 1516606803}
   - {fileID: 575609689}
   m_Father: {fileID: 0}
@@ -4430,8 +4398,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MuffinSpawner
   potionObj: {fileID: 3183216167711710016, guid: 12b35574bf851e24085d31f255660c52, type: 3}
-  spawnOffset: 3
-  spawnHeight: 5
 --- !u!114 &6076020107224946187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4530,7 +4496,7 @@ GameObject:
   - component: {fileID: 2598461138749547155}
   - component: {fileID: 6076020107224946187}
   - component: {fileID: 2075821334654110137}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ENTITY_BORDER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4569,7 +4535,7 @@ Transform:
   m_LocalScale: {x: 46, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 482773922}
+  m_Father: {fileID: 3677892986074082310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

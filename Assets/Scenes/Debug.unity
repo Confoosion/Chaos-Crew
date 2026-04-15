@@ -5658,7 +5658,7 @@ GameObject:
   - component: {fileID: 1142029857}
   - component: {fileID: 1142029856}
   - component: {fileID: 1142029855}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ENTITY_BORDER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
