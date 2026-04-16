@@ -75,8 +75,9 @@ public class GameManager : MonoBehaviour
 
         potionsNeededToMoveOn = START_POTIONS_NEEDED;
 
-        SceneManager.LoadScene("RuinedCityMap");
+        // SceneManager.LoadScene("RuinedCityMap");
         // SceneManager.LoadScene("BombMap");
+        SceneManager.LoadScene("MagicMap");
 
         if(PlayerControl.Singleton)
         {

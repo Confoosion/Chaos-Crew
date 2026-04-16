@@ -1,47 +1,49 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class MovingPlatform : MonoBehaviour
 {
-    [SerializeField] private Transform[] waypoints;
-    [SerializeField] private float speed = 2f;
-    [SerializeField] private float waitTime = 1f;
+    [SerializeField] private float moveTime = 1f;
+    [SerializeField] private float waitTime = 0.5f;
+
+    [SerializeField] private List<Transform> waypoints = new List<Transform>();
+    [SerializeField] private bool canPlatformMove = true;
 
     private int currentIndex = 0;
-    private float waitTimer = 0f;
-    private bool waiting = false;
     private Rigidbody2D rb;
 
-    private void Awake()
+    void Awake()
     {
-         rb = GetComponent<Rigidbody2D>();
-        transform.position = waypoints[0].position;
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    void Start()
     {
-        if (waiting)
+        if(waypoints.Count < 2)
         {
-            waitTimer -= Time.fixedDeltaTime;
-            if (waitTimer <= 0f) 
-                waiting = false;
-            return;
+            Debug.LogWarning("Not enough waypoints in a Moving Platform!");
+            return;   
         }
 
-        Transform target = waypoints[currentIndex];
-        Vector2 newPos = Vector2.MoveTowards(
-            rb.position, 
-            target.position, 
-            speed * Time.fixedDeltaTime
-        );
-        rb.MovePosition(newPos);
+        StartCoroutine(ContinuousMovement());
+    }
 
-        if (Vector2.Distance(rb.position, target.position) < 0.05f)
+    IEnumerator ContinuousMovement()
+    {
+        int waypointCount = waypoints.Count;
+
+        gameObject.transform.position = waypoints[currentIndex].position;
+
+        while(canPlatformMove)
         {
-            currentIndex = (currentIndex + 1) % waypoints.Length;
-            waiting = true;
-            waitTimer = waitTime;
+            currentIndex = (currentIndex + 1) % waypointCount;
+            LeanTween.move(gameObject, waypoints[currentIndex].position, moveTime).setEase(LeanTweenType.easeInOutSine);
+
+            yield return new WaitForSeconds(moveTime + waitTime);  
         }
+
+        yield return null;  
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
