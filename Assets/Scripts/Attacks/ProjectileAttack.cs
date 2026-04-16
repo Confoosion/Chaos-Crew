@@ -51,6 +51,9 @@ public class ProjectileAttack : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(speed * facing, (physicsObject) ? rb.linearVelocity.y : 0f);
+
+        // Uncomment this line below if you have the DrawBoxCastGizmo also uncommented
+        // DrawBoxCastGizmo(raycastTransform.position, new Vector2(0.1f, boxHeight), new Vector2(facing, 0f), raycastDistance, Color.red);
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -87,8 +90,6 @@ public class ProjectileAttack : MonoBehaviour
                 raycastDistance,
                 layerMask
             );
-            DrawBoxCastGizmo(raycastTransform.position, new Vector2(0.1f, boxHeight), new Vector2(facing, 0f), raycastDistance, Color.red);
-
 
             if(hitCollision.collider != null)
             {
