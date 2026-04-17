@@ -4,46 +4,75 @@ using System.Collections.Generic;
 
 public class MovingPlatform : MonoBehaviour
 {
-    [SerializeField] private float moveTime = 1f;
+    [SerializeField] private float speed = 1f;
     [SerializeField] private float waitTime = 0.5f;
 
-    [SerializeField] private List<Transform> waypoints = new List<Transform>();
+    [SerializeField] private Transform[] waypoints;
     [SerializeField] private bool canPlatformMove = true;
 
     private int currentIndex = 0;
+    private float waitTimer = 0f;
+    private bool waiting = false;
     private Rigidbody2D rb;
+
+    private float movingProgress = 0f;
+    private Vector2 movingStart;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    void Start()
-    {
-        if(waypoints.Count < 2)
+        if(waypoints.Length < 2)
         {
             Debug.LogWarning("Not enough waypoints in a Moving Platform!");
-            return;   
+            canPlatformMove = false;
         }
-
-        StartCoroutine(ContinuousMovement());
+        else
+        {
+            transform.position = waypoints[currentIndex].position;
+            currentIndex++;
+            movingStart = rb.position;
+        }
     }
 
-    IEnumerator ContinuousMovement()
+    void FixedUpdate()
     {
-        int waypointCount = waypoints.Count;
-
-        gameObject.transform.position = waypoints[currentIndex].position;
-
-        while(canPlatformMove)
+        if(canPlatformMove)
         {
-            currentIndex = (currentIndex + 1) % waypointCount;
-            LeanTween.move(gameObject, waypoints[currentIndex].position, moveTime).setEase(LeanTweenType.easeInOutSine);
+            if(waiting)
+            {
+                waitTimer -= Time.fixedDeltaTime;
+                if(waitTimer <= 0f)
+                {
+                    waiting = false;
+                    movingProgress = 0f;
+                    movingStart = rb.position;
+                }
+                return;
+            }
 
-            yield return new WaitForSeconds(moveTime + waitTime);  
+            Transform target = waypoints[currentIndex];
+
+            float moveLength = Vector2.Distance(movingStart, target.position);
+            float step = (speed * Time.fixedDeltaTime) / Mathf.Max(moveLength, 0.0001f);
+            movingProgress = Mathf.Clamp01(movingProgress + step);
+
+            float easedT = EaseInOut(movingProgress);
+
+            Vector2 newPos = Vector2.Lerp(movingStart, target.position, easedT);
+            rb.MovePosition(newPos);
+
+            if(movingProgress >= 1f)
+            {
+                currentIndex = (currentIndex + 1) % waypoints.Length;
+                waiting = true;
+                waitTimer = waitTime;
+            }
         }
+    }
 
-        yield return null;  
+    private float EaseInOut(float t)
+    {
+        return(t * t * (3f- 2f * t));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
