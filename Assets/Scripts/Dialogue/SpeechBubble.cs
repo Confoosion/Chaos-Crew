@@ -75,7 +75,6 @@ public class SpeechBubble : MonoBehaviour
     //
     // Typing
     //
-
     private IEnumerator TypeText(string message)
     {
         yield return StartCoroutine(AnimateShow());
@@ -105,7 +104,6 @@ public class SpeechBubble : MonoBehaviour
     //
     // Sizing
     //
-
     private void RefreshBubbleSize()
     {
         bubbleText.ForceMeshUpdate();
