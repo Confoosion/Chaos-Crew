@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9d4acc50ff26b4a9f9580364b4ec23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeAttack
-  knockbackForce: 3
+  knockbackForce: 2.5
   BOUNCE_ON_IT: 0
   bounceForce: 0
   hitSFX: {fileID: 0}

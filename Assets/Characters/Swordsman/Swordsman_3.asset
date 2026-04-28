@@ -21,3 +21,4 @@ MonoBehaviour:
   attackCD: 0.75
   attackSFX: {fileID: 8300000, guid: c2b58897562e93b43a3676ae2f10a993, type: 3}
   attackVolume: 1
+  dualWield: 1
