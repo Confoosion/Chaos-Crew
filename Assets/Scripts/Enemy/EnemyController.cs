@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class EnemyController : MonoBehaviour
@@ -7,8 +8,13 @@ public class EnemyController : MonoBehaviour
     public EnemySO enemyType;
     [SerializeField] private GameObject deathParticle;
 
+    [SerializeField] protected bool canMove = true;
+    [SerializeField] private Vector2 knockbackForce = new Vector2(3f, 5f);
+    [SerializeField] private float knockbackCD = 0.75f; 
+
     protected float speed;
     private float health;
+    protected int direction = 1;
 
     private void Start()
     {
@@ -30,17 +36,37 @@ public class EnemyController : MonoBehaviour
         health = enemyType.health;
     }
 
-    // protected void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     if (collision.gameObject.CompareTag("Player"))
-    //     {
-    //         //Player should be dead
-    //         collision.gameObject.GetComponent<PlayerControl>().playerDeath();
-    //     }
-    // }
+    public void SetMoveDirection(int dir)
+    {
+        direction = dir;
+        UpdateSpriteDirection();
+    }
+
+    protected void UpdateSpriteDirection()
+    {
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -direction, transform.localScale.y, transform.localScale.z);
+    }
+
+    public void TakeKnockback(float kbForce)
+    {
+        Vector2 kb = new Vector2(knockbackForce.x * kbForce, knockbackForce.y);
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+        canMove = false;
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(kb, ForceMode2D.Impulse);
+        
+        StartCoroutine(KnockedBack(knockbackCD));
+    }
+
+    IEnumerator KnockedBack(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        canMove = true;
+        yield return null;
+    }
 
     //ENEMY Taking Damage and dying
-
     public void enemyTakeDamage(float damage)
     {
         float extraDamage = 0f;
@@ -76,7 +102,6 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
-
 
     private void enemyDeath()
     {

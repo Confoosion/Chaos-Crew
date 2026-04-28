@@ -8,6 +8,7 @@ public class MeleeAttack : MonoBehaviour
     private float attackTime;
     private float damage;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private float knockbackForce;
     [SerializeField] private bool BOUNCE_ON_IT;
     [SerializeField] private float bounceForce;
     [SerializeField] private AudioClip hitSFX;
@@ -41,6 +42,12 @@ public class MeleeAttack : MonoBehaviour
             // Debug.Log("Hit enemy!");
 
             SoundManager.Singleton.PlayAttackAudio(hitSFX);
+
+            if(knockbackForce > 0f)
+            {   // Knockback enemy
+                int kbDirection = (collider.transform.position.x < transform.position.x) ? -1 : 1;
+                collider.gameObject.GetComponent<EnemyController>().TakeKnockback(knockbackForce * kbDirection);
+            }
 
             if (BOUNCE_ON_IT)
             {   // Bounces on enemies, so we will destroy this object and force the player up

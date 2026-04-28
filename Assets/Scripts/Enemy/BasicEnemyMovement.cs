@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class BasicEnemyMovement : EnemyController
 {
-    [SerializeField] private bool canMove = true;
+    // [SerializeField] private bool canMove = true;
     [SerializeField] private LayerMask wallLayer;
-    private int direction = 1;
+    // private int direction = 1;
     private Rigidbody2D rb;
 
     void Start()
@@ -28,8 +28,8 @@ public class BasicEnemyMovement : EnemyController
     {
         if ((wallLayer.value & 1 << collision.transform.gameObject.layer) != 0)
         {
-            direction *= -1;
-            UpdateSpriteDirection();
+            SetMoveDirection(direction * -1);
+            // UpdateSpriteDirection();
         }
         else if(collision.transform.CompareTag("Player") && !PlayerControl.Singleton.IsStandingOnEnemy())
         {
@@ -37,16 +37,16 @@ public class BasicEnemyMovement : EnemyController
         }
     }
 
-    public void SetMoveDirection(int dir)
-    {
-        direction = dir;
-        UpdateSpriteDirection();
-    }
+    // public void SetMoveDirection(int dir)
+    // {
+    //     direction = dir;
+    //     UpdateSpriteDirection();
+    // }
 
-    private void UpdateSpriteDirection()
-    {
-        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -direction, transform.localScale.y, transform.localScale.z);
-    }
+    // private void UpdateSpriteDirection()
+    // {
+    //     transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -direction, transform.localScale.y, transform.localScale.z);
+    // }
 }
 
 
