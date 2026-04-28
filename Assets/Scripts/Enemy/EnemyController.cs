@@ -67,8 +67,12 @@ public class EnemyController : MonoBehaviour
     }
 
     //ENEMY Taking Damage and dying
-    public void enemyTakeDamage(float damage)
+    public bool enemyTakeDamage(float damage)
     {
+        // Check if already dead
+        if(health <= 0)
+            return(false);
+
         float extraDamage = 0f;
 
         // Check for damage perk
@@ -101,6 +105,8 @@ public class EnemyController : MonoBehaviour
                 GameManager.Singleton.addHeavyEnemyKill();
             }
         }
+        
+        return(true);
     }
 
     private void enemyDeath()
