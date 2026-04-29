@@ -18,5 +18,10 @@ public class BowlingBallCharacter : CharacterSO
 
             bowlingBall.GetComponent<ProjectileAttack>().SetData(attackPower, rollingSpeed, direction, pierceAmount, bounceAmount);
         }
+        else
+        {
+            bowlingBall.GetComponent<ProjectileAttack>().ManuallyDetonate();
+            bowlingBall = null;
+        }
     }
 }

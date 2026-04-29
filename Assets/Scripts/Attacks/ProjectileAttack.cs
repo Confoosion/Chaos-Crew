@@ -130,6 +130,11 @@ public class ProjectileAttack : MonoBehaviour
         }
     }
 
+    public void ManuallyDetonate()
+    {
+        ProjectileDespawn();
+    }
+
     // UNCOMMENT THIS CODE if you wanna see the raycast box for collisions (wall detection) 
 
     // void DrawBoxCastGizmo(Vector2 origin, Vector2 size, Vector2 direction, float distance, Color color)
