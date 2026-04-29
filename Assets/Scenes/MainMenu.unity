@@ -2979,6 +2979,7 @@ GameObject:
   - component: {fileID: 920931504}
   - component: {fileID: 920931503}
   - component: {fileID: 920931502}
+  - component: {fileID: 920931505}
   m_Layer: 0
   m_Name: DDOL_Managers
   m_TagString: Untagged
@@ -3001,7 +3002,6 @@ MonoBehaviour:
   characterList: []
   characterTransform: {fileID: 0}
   characterModel: {fileID: 0}
-  currentCharacter: {fileID: 0}
   FULL_CHARACTER_LIST:
   - {fileID: 11400000, guid: 2db5ac84bd6faec4e8fe8ac4a4904b12, type: 2}
   - {fileID: 11400000, guid: 9b2796af08be42740bb39110f9122813, type: 2}
@@ -3048,6 +3048,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &920931505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920931501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df522bac7029f2d43a33f2b6b0c7759c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
+  dialogueController: {fileID: 0}
 --- !u!1 &923079922
 GameObject:
   m_ObjectHideFlags: 0
