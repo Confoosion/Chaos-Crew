@@ -32,6 +32,8 @@ public class PlayerControl : MonoBehaviour
 
     private bool isCharging = false;
     private bool jumpLocked = false;
+    private bool isSlowed = false;
+    private bool isPushed = false;
 
     private float horizontal;
     private bool isFacingRight;
@@ -133,7 +135,7 @@ public class PlayerControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!movementLocked && !isCharging)
+        if (!movementLocked && !isCharging && !isPushed)
         {
             if(speed > MAXSPEED)
             {
@@ -243,6 +245,42 @@ public class PlayerControl : MonoBehaviour
         speed += boost;
         if(speed > 15f)
             speed = 15f;
+    }
+
+    public void SlowMovement(float spd)
+    {
+        if(!isSlowed)
+        {
+            isSlowed = true;
+            speed -= spd;
+        }
+    }
+
+    public void ResetSlow()
+    {
+        isSlowed = false;
+        speed = MAXSPEED;
+    }
+
+    public void TryPushBack(float force)
+    {
+        if(horizontal != 0f)
+        {
+            return;
+        }
+        
+        StartCoroutine(PushBack(force));
+    }
+
+    IEnumerator PushBack(float force)
+    {
+        isPushed = true;
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        rb.AddForce(new Vector2((isFacingRight ? -1f : 1f) * force, 0f), ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(0.12f);
+
+        isPushed = false;
     }
 
     public bool HasThickBoots() => hasThickboots; 
