@@ -4,6 +4,7 @@ using UnityEngine;
 public class MachineGunCharacter : CharacterSO
 {
     [Header("Machine Gun Stats")]
+    [SerializeField] private float speedPenalty = 2.5f;
     [SerializeField] private float bulletVelocity;
     [SerializeField] private float weaponKnockback;
     [SerializeField] private float explosionDamage;
@@ -21,8 +22,10 @@ public class MachineGunCharacter : CharacterSO
             atk.GetComponent<ProjectileAttack>().SetImpactData(explosionDamage, explosionDuration);
         }
 
+        // Slow player down
+        playerAttack.SlowPlayerMovement(speedPenalty);
+
         // Push player back
-        float push = weaponKnockback * -direction;
-        origin.position = new Vector2(origin.position.x + push, origin.position.y);
+        playerAttack.GetPlayerControl().TryPushBack(weaponKnockback);
     }
 }

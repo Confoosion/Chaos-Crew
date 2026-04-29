@@ -27,9 +27,9 @@ public class RangeAttack : MonoBehaviour
         if (collider.CompareTag("Enemy"))
         {
             //Debug.Log("Hit enemy!");
-            collider.gameObject.GetComponent<EnemyController>().enemyTakeDamage(damage);
-
-            ProjectileDespawn();
+            EnemyController enemyController = collider.gameObject.GetComponent<EnemyController>();
+            if(enemyController != null && enemyController.enemyTakeDamage(damage))
+                ProjectileDespawn();
         }
         else if (destroyOnTerrain && collider.CompareTag("Terrain"))
         {

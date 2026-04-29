@@ -21,7 +21,8 @@ MonoBehaviour:
   attackCD: 0.13
   attackSFX: {fileID: 8300000, guid: 503ec10c4b4b8f04bb142daa9241ac37, type: 3}
   attackVolume: 1
+  speedPenalty: 7
   bulletVelocity: 15
-  weaponKnockback: 0.25
+  weaponKnockback: 3
   explosionDamage: 0
   explosionDuration: 0

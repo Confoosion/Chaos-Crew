@@ -26,7 +26,7 @@ public class ArcherCharacter : CharacterSO
                 Vector2 force = ((direction == 1) ? Vector3.right : Vector3.left) * projectileForce + new Vector3(0f, offset, 0f);
                 float angle = Mathf.Atan2(force.y, force.x) * Mathf.Rad2Deg;
 
-                atk = Instantiate(attackObject, origin.position + new Vector3(0f, 0.25f, 0f), Quaternion.Euler(0f, 0f, angle));
+                atk = Instantiate(attackObject, origin.position + new Vector3(-direction * 0.5f, 0.25f, 0f), Quaternion.Euler(0f, 0f, angle));
 
                 var rangeAtk = atk.GetComponent<RangeAttack>();
                 var rb = atk.GetComponent<Rigidbody2D>();

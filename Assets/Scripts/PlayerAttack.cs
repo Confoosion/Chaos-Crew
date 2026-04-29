@@ -71,6 +71,12 @@ public class PlayerAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(cd);
         canAttack = true;
+
+        PlayerControl pControl = GetPlayerControl();
+        if(pControl)
+        {
+            pControl.ResetSlow();
+        }
     }
 
     public void ResetAttackCooldown()
@@ -78,6 +84,20 @@ public class PlayerAttack : MonoBehaviour
         if(cooldownRoutine != null)
             StopCoroutine(cooldownRoutine);
         canAttack = true;
+
+        PlayerControl pControl = GetPlayerControl();
+        if(pControl)
+        {
+            pControl.ResetSlow();
+        }
+    }
+
+    public void SlowPlayerMovement(float slow)
+    {
+        if(!canAttack)
+        {
+            GetPlayerControl().SlowMovement(slow);
+        }
     }
 
     public void BurstAttack(GameObject atkObject, int count, float interval, float burstVelocity, float atkPower, Vector2 angleForce = default, bool destroyOnTerrain = false, float impactDamage = 0f, float impactDuration = 0f)
