@@ -53,7 +53,7 @@ public class DialogueManager : MonoBehaviour
         if (dialogueController == null)
             yield break;
 
-        // Wait until CharacterManager exists (avoid NullRef)
+        // Wait until CharacterManager exists
         if (CharacterManager.Singleton == null)
             yield break;
 
