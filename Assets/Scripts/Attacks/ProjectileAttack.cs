@@ -127,6 +127,10 @@ public class ProjectileAttack : MonoBehaviour
             {
                 impact.GetComponent<MeleeAttack>().SetData(impactDamage, impactDuration);
             }
+            else if(impact.GetComponent<ParticleAttack>())
+            {
+                impact.GetComponent<ParticleAttack>().SetData(impactDamage, impactDuration);
+            }
         }
     }
 

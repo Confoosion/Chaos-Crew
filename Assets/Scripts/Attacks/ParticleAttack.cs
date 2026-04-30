@@ -17,7 +17,6 @@ public class ParticleAttack : MonoBehaviour
 
     public void SetData(float dmg, float atkDuration, Transform facing = null)
     {
-        Debug.Log("Particle Data received");
         if (duration != atkDuration)
         {
             damage = dmg;

@@ -24,3 +24,5 @@ MonoBehaviour:
   rollingSpeed: 8
   pierceAmount: 5
   bounceAmount: 100
+  coinDamage: 25
+  coinExplosionDuration: 1

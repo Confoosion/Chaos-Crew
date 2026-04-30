@@ -178,7 +178,7 @@ MonoBehaviour:
   physicsObject: 1
   bounceAmount: 100
   collision_SFX: {fileID: 0}
-  impactObject: {fileID: 0}
+  impactObject: {fileID: 7335666280237362611, guid: c371074ade1274d4bb2c11bea43924cd, type: 3}
   raycastDistance: 0.5
   boxHeight: 0.9
   raycastTransform: {fileID: 7036787512087784465}
