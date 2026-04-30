@@ -15,9 +15,11 @@ MonoBehaviour:
   characterName: You
   characterModel: {fileID: 21300000, guid: 12db96b0bc4636240b12d53bca9cc616, type: 3}
   attackObject: {fileID: 6760747043205599084, guid: 9f2dd8cbfe7806747916caf31b92ee89, type: 3}
+  characterIcon: {fileID: 21300000, guid: 9801af32adfdfdc41af828043f4ef221, type: 3}
   level: 1
   attackPower: 25
   attackDuration: 0.25
   attackCD: 0.75
   attackSFX: {fileID: 8300000, guid: c2b58897562e93b43a3676ae2f10a993, type: 3}
   attackVolume: 1
+  dualWield: 0
