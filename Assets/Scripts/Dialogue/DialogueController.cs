@@ -34,10 +34,10 @@ public class DialogueController : MonoBehaviour
         dialogueText.text = "";
     }
 
-    public void PlayLine(string speakerName, string line)
+    public void PlayLine(string speakerName, Sprite portrait, string line)
     {
         if (currentRoutine != null) StopCoroutine(currentRoutine);
-        currentRoutine = StartCoroutine(PlayLineRoutine(speakerName, line));
+        currentRoutine = StartCoroutine(PlayLineRoutine(speakerName, portrait, line));
     }
 
     public void FadeAwayNow(bool clearText = true)
@@ -46,11 +46,11 @@ public class DialogueController : MonoBehaviour
         currentRoutine = StartCoroutine(FadeOutRoutine(clearText));
     }
 
-    private IEnumerator PlayLineRoutine(string speakerName, string line)
+    private IEnumerator PlayLineRoutine(string speakerName, Sprite portrait, string line)
     {
         nameText.text = speakerName;
         dialogueText.text = "";
-        characterPortrait.sprite = GetCurrentCharacterIcon();
+        characterPortrait.sprite = portrait;
         SetLineSeparatorWidthToName();
 
         // Fade in
@@ -111,11 +111,6 @@ public class DialogueController : MonoBehaviour
         }
 
         currentRoutine = null;
-    }
-
-    private Sprite GetCurrentCharacterIcon()
-    {
-        return CharacterManager.Singleton.GetCurrentCharacter().characterIcon;
     }
 
     // Set Line Separator Width to match the character name like an underline

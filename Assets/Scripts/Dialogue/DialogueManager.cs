@@ -61,6 +61,11 @@ public class DialogueManager : MonoBehaviour
         if (current == null)
             yield break;
 
-        dialogueController.PlayLine(current.characterName, "Heh, I can get used to this.");
+        dialogueController.PlayLine(current.characterName, GetCurrentCharacterIcon(), "Heh, I can get used to this.");
+    }
+
+    private Sprite GetCurrentCharacterIcon()
+    {
+        return CharacterManager.Singleton.GetCurrentCharacter().characterIcon;
     }
 }
