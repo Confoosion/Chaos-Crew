@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public abstract class CharacterSO : ScriptableObject
 {
     public string characterName;
     public Sprite characterModel;
     public GameObject attackObject;
+    public Sprite characterIcon;
 
     [Header("Basic Stats")]
     public int level = 1;
