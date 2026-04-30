@@ -96,6 +96,7 @@ MonoBehaviour:
   jumpVolume: 0
   godMode: 0
   hasThickboots: 0
+  standingOnEnemy: 0
 --- !u!114 &4395045806453624289
 MonoBehaviour:
   m_ObjectHideFlags: 0
