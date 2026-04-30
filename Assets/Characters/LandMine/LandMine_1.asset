@@ -21,3 +21,4 @@ MonoBehaviour:
   attackCD: 2
   attackSFX: {fileID: 8300000, guid: 4e7d2ca7513c806448191098385319c4, type: 3}
   attackVolume: 1
+  extraDolls: 1

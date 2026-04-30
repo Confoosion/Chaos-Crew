@@ -4,9 +4,10 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "Characters/Land Mine Character")]
 public class LandMineCharacter : CharacterSO
 {
-    private bool destroyMineTouchingGround = false;
+    [SerializeField] private int extraDolls = 0;
     private List<GameObject> landMines = new List<GameObject>();
     private float explosionDuration = 0.2f;
+
     public override void UseWeapon(Transform origin, PlayerAttack playerAttack)
     {
         if (landMines.Count > 9)
@@ -32,10 +33,7 @@ public class LandMineCharacter : CharacterSO
         GameObject atk = Instantiate(attackObject, origin.position, Quaternion.identity);
         landMines.Insert(0, atk);
 
-        atk.GetComponent<RangeAttack>().SetData(attackPower, destroyMineTouchingGround);
-        if(atk.GetComponent<RangeAttack>().impactObject != null)
-        {
-            atk.GetComponent<RangeAttack>().SetImpactData(attackPower, explosionDuration);
-        }
+        atk.GetComponent<RussianDollAttack>().SetData(attackPower, extraDolls);
+        atk.GetComponent<RussianDollAttack>().SetImpactData(attackPower, explosionDuration);
     }
 }

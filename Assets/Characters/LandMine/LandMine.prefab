@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6640266740071152384}
   - component: {fileID: 6147388026898920743}
   - component: {fileID: 637255430174672351}
-  - component: {fileID: 2417580598683878540}
+  - component: {fileID: -4274425329490216017}
   m_Layer: 0
   m_Name: LandMine
   m_TagString: Untagged
@@ -214,7 +214,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.62274444, y: 0.89046437}
   m_EdgeRadius: 0
---- !u!114 &2417580598683878540
+--- !u!114 &-4274425329490216017
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2791287070309783046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f6594d9331674e4abf59943e039fdd1, type: 3}
+  m_Script: {fileID: 11500000, guid: fb573463c632d4e4dadfd09bca5c89e1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RangeAttack
+  m_EditorClassIdentifier: Assembly-CSharp::RussianDollAttack
   impactObject: {fileID: 0}
   impactSFX: {fileID: 8300000, guid: 90c91fa0549e56847bc6b654ee0bcb6a, type: 3}
