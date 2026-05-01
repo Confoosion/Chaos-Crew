@@ -15,10 +15,11 @@ MonoBehaviour:
   characterName: Sally
   characterModel: {fileID: 21300000, guid: d379993640e81b04aa18968e64a8311c, type: 3}
   attackObject: {fileID: 2791287070309783046, guid: c8bfc82e9b65b4141acf48eb63170cbb, type: 3}
+  characterIcon: {fileID: 0}
   level: 1
   attackPower: 100
   attackDuration: 0
-  attackCD: 2
+  attackCD: 1.5
   attackSFX: {fileID: 8300000, guid: 4e7d2ca7513c806448191098385319c4, type: 3}
   attackVolume: 1
-  extraDolls: 0
+  extraDolls: []

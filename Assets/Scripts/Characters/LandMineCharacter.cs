@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "Characters/Land Mine Character")]
 public class LandMineCharacter : CharacterSO
 {
-    [SerializeField] private int extraDolls = 0;
+    [SerializeField] private List<GameObject> extraDolls = new List<GameObject>();
     private List<GameObject> landMines = new List<GameObject>();
     private float explosionDuration = 0.2f;
 

@@ -14,11 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LandMineCharacter
   characterName: Sally
   characterModel: {fileID: 21300000, guid: d379993640e81b04aa18968e64a8311c, type: 3}
-  attackObject: {fileID: 2791287070309783046, guid: d0794c1dbf0e2e941b0ffdf1da4dcc0c, type: 3}
+  attackObject: {fileID: 2791287070309783046, guid: f08782e444b9e8a4691ffa3a3abcd3b4, type: 3}
+  characterIcon: {fileID: 0}
   level: 3
   attackPower: 100
   attackDuration: 0
   attackCD: 1.5
   attackSFX: {fileID: 8300000, guid: 4e7d2ca7513c806448191098385319c4, type: 3}
   attackVolume: 1
-  extraDolls: 2
+  extraDolls:
+  - {fileID: 2791287070309783046, guid: 1384104332adb714399cba3ce9908ea8, type: 3}
+  - {fileID: 2791287070309783046, guid: c8bfc82e9b65b4141acf48eb63170cbb, type: 3}

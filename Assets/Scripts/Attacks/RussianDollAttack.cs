@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 // Sally the Mechanic's attack
 public class RussianDollAttack : MonoBehaviour
 {
     private float damage;
-    private int extraDolls = 0;
+    [SerializeField] private List<GameObject> extraDolls;
     // private Vector3 extraDollOffset = new Vector3(3f, 0f, 0f);
     private Vector3 dollLaunchVector = new Vector2(2f, 8f);
 
@@ -13,10 +14,10 @@ public class RussianDollAttack : MonoBehaviour
     private float impactDuration;
     public AudioClip impactSFX;
 
-    public void SetData(float dmg, int _extraDolls)
+    public void SetData(float dmg, List<GameObject> _extraDolls)
     {
         damage = dmg;
-        extraDolls = _extraDolls;
+        extraDolls = new List<GameObject>(_extraDolls);
     }
 
     public void SetImpactData(float dmg, float dur)
@@ -58,16 +59,19 @@ public class RussianDollAttack : MonoBehaviour
 
     private void TrySpawnMoreDolls()
     {
-        if(extraDolls > 0)
+        if(extraDolls.Count > 0)
         {
-            GameObject doll = Instantiate(this.gameObject, transform.position, Quaternion.identity);
+            GameObject temp = extraDolls[0];
+            extraDolls.RemoveAt(0);
+
+            GameObject doll = Instantiate(temp, transform.position, Quaternion.identity);
             LaunchDoll(doll, new Vector2(-1f, 1f));
-            doll.GetComponent<RussianDollAttack>().SetData(damage, extraDolls - 1);
+            doll.GetComponent<RussianDollAttack>().SetData(damage, extraDolls);
             doll.GetComponent<RussianDollAttack>().SetImpactData(impactDamage, impactDuration);
 
-            doll = Instantiate(this.gameObject, transform.position, Quaternion.identity);
+            doll = Instantiate(temp, transform.position, Quaternion.identity);
             LaunchDoll(doll, new Vector2(1f, 1f));
-            doll.GetComponent<RussianDollAttack>().SetData(damage, extraDolls - 1);
+            doll.GetComponent<RussianDollAttack>().SetData(damage, extraDolls);
             doll.GetComponent<RussianDollAttack>().SetImpactData(impactDamage, impactDuration);
         }
     }
