@@ -5,7 +5,8 @@ public class RussianDollAttack : MonoBehaviour
 {
     private float damage;
     private int extraDolls = 0;
-    private Vector3 extraDollOffset = new Vector3(3f, 0f, 0f);
+    // private Vector3 extraDollOffset = new Vector3(3f, 0f, 0f);
+    private Vector3 dollLaunchVector = new Vector2(2f, 8f);
 
     public GameObject impactObject;
     private float impactDamage;
@@ -59,13 +60,21 @@ public class RussianDollAttack : MonoBehaviour
     {
         if(extraDolls > 0)
         {
-            GameObject doll = Instantiate(this.gameObject, transform.position + extraDollOffset, Quaternion.identity);
+            GameObject doll = Instantiate(this.gameObject, transform.position, Quaternion.identity);
+            LaunchDoll(doll, new Vector2(-1f, 1f));
             doll.GetComponent<RussianDollAttack>().SetData(damage, extraDolls - 1);
             doll.GetComponent<RussianDollAttack>().SetImpactData(impactDamage, impactDuration);
 
-            doll = Instantiate(this.gameObject, transform.position - extraDollOffset, Quaternion.identity);
+            doll = Instantiate(this.gameObject, transform.position, Quaternion.identity);
+            LaunchDoll(doll, new Vector2(1f, 1f));
             doll.GetComponent<RussianDollAttack>().SetData(damage, extraDolls - 1);
             doll.GetComponent<RussianDollAttack>().SetImpactData(impactDamage, impactDuration);
         }
+    }
+
+    private void LaunchDoll(GameObject dollObj, Vector2 direction)
+    {
+        Rigidbody2D dollRb = dollObj.GetComponent<Rigidbody2D>();
+        dollRb.AddForce(dollLaunchVector * direction, ForceMode2D.Impulse);
     }
 }
