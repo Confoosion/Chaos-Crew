@@ -53,7 +53,7 @@ public class DialogueManager : MonoBehaviour
         if (dialogueController == null)
             yield break;
 
-        // Wait until CharacterManager exists (avoid NullRef)
+        // Wait until CharacterManager exists
         if (CharacterManager.Singleton == null)
             yield break;
 
@@ -61,6 +61,11 @@ public class DialogueManager : MonoBehaviour
         if (current == null)
             yield break;
 
-        dialogueController.PlayLine(current.characterName, "Heh, I can get used to this.");
+        dialogueController.PlayLine(current.characterName, GetCurrentCharacterIcon(), "Heh, I can get used to this.");
+    }
+
+    private Sprite GetCurrentCharacterIcon()
+    {
+        return CharacterManager.Singleton.GetCurrentCharacter().characterIcon;
     }
 }

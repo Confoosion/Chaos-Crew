@@ -1,6 +1,8 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text dialogueText;
+    [SerializeField] private Image lineSeparator;
+    [SerializeField] private Image characterPortrait;
 
     [Header("Timings")]
     [SerializeField] private float typeSpeed = 0.03f;
@@ -30,10 +34,10 @@ public class DialogueController : MonoBehaviour
         dialogueText.text = "";
     }
 
-    public void PlayLine(string speakerName, string line)
+    public void PlayLine(string speakerName, Sprite portrait, string line)
     {
         if (currentRoutine != null) StopCoroutine(currentRoutine);
-        currentRoutine = StartCoroutine(PlayLineRoutine(speakerName, line));
+        currentRoutine = StartCoroutine(PlayLineRoutine(speakerName, portrait, line));
     }
 
     public void FadeAwayNow(bool clearText = true)
@@ -42,10 +46,12 @@ public class DialogueController : MonoBehaviour
         currentRoutine = StartCoroutine(FadeOutRoutine(clearText));
     }
 
-    private IEnumerator PlayLineRoutine(string speakerName, string line)
+    private IEnumerator PlayLineRoutine(string speakerName, Sprite portrait, string line)
     {
         nameText.text = speakerName;
         dialogueText.text = "";
+        characterPortrait.sprite = portrait;
+        SetLineSeparatorWidthToName();
 
         // Fade in
         yield return FadeRoutine(1f);
@@ -105,5 +111,23 @@ public class DialogueController : MonoBehaviour
         }
 
         currentRoutine = null;
+    }
+
+    // Set Line Separator Width to match the character name like an underline
+    private void SetLineSeparatorWidthToName()
+    {
+        nameText.ForceMeshUpdate();
+
+        float padding = 5f;
+        float w = nameText.preferredWidth + padding;
+
+        RectTransform nameRT = nameText.rectTransform;
+        RectTransform lineRT = lineSeparator.rectTransform;
+
+        // Set width
+        lineRT.sizeDelta = new Vector2(w, lineRT.sizeDelta.y);
+
+        // Align left edge under the name's left edge
+        lineRT.anchoredPosition = new Vector2(nameRT.anchoredPosition.x, lineRT.anchoredPosition.y);
     }
 }
