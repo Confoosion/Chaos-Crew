@@ -15,6 +15,7 @@ MonoBehaviour:
   characterName: Ang
   characterModel: {fileID: 21300000, guid: 509f58d5817406a48b40f6524b65d94c, type: 3}
   attackObject: {fileID: 4745350584404367125, guid: 01db54bde062ffe4a8d1974303b1b546, type: 3}
+  characterIcon: {fileID: 0}
   level: 2
   attackPower: 50
   attackDuration: 0
@@ -23,4 +24,4 @@ MonoBehaviour:
   attackVolume: 1
   boomerangSpeed: 12
   boomerangBounces: 4
-  boomerangPierces: 0
+  boomerangPierces: 1

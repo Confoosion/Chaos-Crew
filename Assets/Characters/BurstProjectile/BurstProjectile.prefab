@@ -143,12 +143,9 @@ MonoBehaviour:
   canBounceOffEnemies: 0
   canRollOnGround: 0
   physicsObject: 0
-  bounceAmount: 0
   collision_SFX: {fileID: 0}
   impactObject: {fileID: 0}
-  raycastDistance: 0.5
-  boxHeight: 0.5
-  raycastTransform: {fileID: 4509680703649947205}
+  wallCheck: {fileID: 0}
 --- !u!61 &8033671402345020253
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -165,7 +162,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 575
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
