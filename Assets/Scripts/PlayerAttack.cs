@@ -107,9 +107,10 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator DoBurstAttack(GameObject atkObject, int count, float interval, float burstVelocity, float atkPower, Vector2 angleForce, bool destroyOnTerrain, float impactDamage, float impactDuration)
     {
+        float direction = (transform.localScale.x == 1) ? -1f : 1f;
+
         for (int i = 0; i < count; i++)
         {
-            float direction = (transform.localScale.x == 1) ? -1f : 1f;
             GameObject atk = Instantiate(atkObject, transform.position + new Vector3(direction * 0.5f, 0f, 0f), Quaternion.identity);
             Transform atkTransform = atk.transform;
             atkTransform.localScale = new Vector3(atkTransform.localScale.x * -direction, atkTransform.localScale.y, atkTransform.localScale.z);
@@ -126,6 +127,26 @@ public class PlayerAttack : MonoBehaviour
             {
                 atk.GetComponent<ProjectileAttack>().SetData(atkPower, burstVelocity, direction);
             }
+
+            yield return new WaitForSeconds(interval);
+        }
+    }
+
+    public void SimpleBurstAttack(GameObject atkObject, int count, float interval)
+    {
+        StartCoroutine(SimpleBurst(atkObject, count, interval));
+    }
+
+    // Velocity and damage does NOT matter for this burst. The burst object is assumed to have its own behaviors
+    IEnumerator SimpleBurst(GameObject atkObject, int count, float interval)
+    {
+        float direction = (transform.localScale.x == 1) ? -1f : 1f;
+
+        for(int i = 0; i < count; i++)
+        {
+            GameObject atk = Instantiate(atkObject, transform.position, Quaternion.identity);
+            Transform atkTransform = atk.transform;
+            atkTransform.localScale = new Vector3(atkTransform.localScale.x * -direction, atkTransform.localScale.y, atkTransform.localScale.z);
 
             yield return new WaitForSeconds(interval);
         }
